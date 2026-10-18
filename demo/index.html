@@ -357,6 +357,12 @@ function indicatorList(rows, key, dir) {
   return sorted.slice(0, 3).map(e => ({ name: e.name, valText: pct(e[key]) }));
 }
 
+function indicatorListBy(rows, sortKey, displayKey, dir) {
+  const withVal = rows.filter(e => e[sortKey] !== null && e[displayKey] !== null);
+  const sorted = [...withVal].sort((a, b) => dir === 'top' ? a[sortKey] - b[sortKey] : b[sortKey] - a[sortKey]);
+  return sorted.slice(0, 3).map(e => ({ name: e.name, valText: pct(e[displayKey]) }));
+}
+
 class Component extends DCLogic {
   state = { loading: true, error: '', team: [], sortKey: null, sortDir: 'desc' };
 
@@ -464,8 +470,8 @@ class Component extends DCLogic {
       moneyRows, moneyTotals,
       indTopOutstanding: indicatorList(rows, 'totalPct', 'top'),
       indBotOutstanding: indicatorList(rows, 'totalPct', 'bot'),
-      indTopAchv: indicatorList(rows, 'sp', 'bot'),
-      indBotAchv: indicatorList(rows, 'sp', 'top'),
+      indTopAchv: indicatorListBy(rows, 'achieved', 'sp', 'bot'),
+      indBotAchv: indicatorListBy(rows, 'achieved', 'sp', 'top'),
       indTopPastCollect: indicatorList(rows, 'pastCollectPct', 'bot'),
       indBotPastCollect: indicatorList(rows, 'pastCollectPct', 'top'),
       indTopMonthlyCollect: indicatorList(rows, 'instCollectPct', 'bot'),
