@@ -68,7 +68,7 @@ body{font-family:'Tajawal',sans-serif;background:var(--bg);color:var(--text);min
 }
 
 /* ── Indicator grid (top3 / bottom3 per metric) ───────── */
-.ind-wrap{display:grid;grid-template-columns:2fr 3fr;gap:0;background:var(--bg2);border:1px solid var(--border);border-radius:16px;overflow:hidden;margin-bottom:18px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.ind-wrap{display:grid;grid-template-columns:1fr 1fr;gap:0;background:var(--bg2);border:1px solid var(--border);border-radius:16px;overflow:hidden;margin-bottom:18px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
 @media(max-width:900px){.ind-wrap{grid-template-columns:1fr}}
 .ind-col{padding:14px 16px}
 .ind-col.right{border-right:2px solid var(--maroon-border)}
@@ -174,7 +174,7 @@ body{font-family:'Tajawal',sans-serif;background:var(--bg);color:var(--text);min
       <div class="ind-wrap">
         <div class="ind-col">
           <div class="ind-title">مؤشرات المبيعات</div>
-          <div class="ind-metrics n2">
+          <div class="ind-metrics n3">
             <div>
               <div class="ind-metric-lbl">نسبة تحقيق مبيعات</div>
               <div class="ind-card top">
@@ -184,6 +184,19 @@ body{font-family:'Tajawal',sans-serif;background:var(--bg);color:var(--text);min
               </div>
               <div class="ind-card bot">
                 <sc-for list="{{ indBotAchv }}" as="c" hint-placeholder-count="3">
+                  <div class="ind-row bot"><span class="n">{{ c.name }}</span><span class="v">{{ c.valText }}</span></div>
+                </sc-for>
+              </div>
+            </div>
+            <div>
+              <div class="ind-metric-lbl">نسبة تحقيق من المستهدف</div>
+              <div class="ind-card top">
+                <sc-for list="{{ indTopAchvTarget }}" as="c" hint-placeholder-count="3">
+                  <div class="ind-row top"><span class="n">{{ c.name }}</span><span class="v">{{ c.valText }}</span></div>
+                </sc-for>
+              </div>
+              <div class="ind-card bot">
+                <sc-for list="{{ indBotAchvTarget }}" as="c" hint-placeholder-count="3">
                   <div class="ind-row bot"><span class="n">{{ c.name }}</span><span class="v">{{ c.valText }}</span></div>
                 </sc-for>
               </div>
@@ -472,6 +485,8 @@ class Component extends DCLogic {
       indBotOutstanding: indicatorList(rows, 'totalPct', 'bot'),
       indTopAchv: indicatorListBy(rows, 'achieved', 'sp', 'bot'),
       indBotAchv: indicatorListBy(rows, 'achieved', 'sp', 'top'),
+      indTopAchvTarget: indicatorList(rows, 'sp', 'bot'),
+      indBotAchvTarget: indicatorList(rows, 'sp', 'top'),
       indTopPastCollect: indicatorList(rows, 'pastCollectPct', 'bot'),
       indBotPastCollect: indicatorList(rows, 'pastCollectPct', 'top'),
       indTopMonthlyCollect: indicatorList(rows, 'instCollectPct', 'bot'),
