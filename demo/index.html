@@ -262,6 +262,8 @@ body{font-family:'Tajawal',sans-serif;background:var(--bg);color:var(--text);min
         </div>
       </div>
 
+      <div id="screenBreakSpacer"></div>
+
       <div class="money-box">
         <div class="money-box-header">
           <div>
@@ -521,6 +523,28 @@ class Component extends DCLogic {
     };
   }
 }
+</script>
+<script>
+(function () {
+  var SCREEN_HEIGHT = 1080;
+  function recomputeSpacer() {
+    var indWrap = document.querySelector('.ind-wrap');
+    var spacer = document.getElementById('screenBreakSpacer');
+    if (!indWrap || !spacer) return;
+    var bottom = indWrap.getBoundingClientRect().bottom + window.scrollY;
+    var gap = Math.max(0, SCREEN_HEIGHT - bottom);
+    spacer.style.height = gap + 'px';
+  }
+  var debounceTimer = null;
+  function scheduleRecompute() {
+    clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(recomputeSpacer, 50);
+  }
+  new MutationObserver(scheduleRecompute).observe(document.body, { childList: true, subtree: true });
+  window.addEventListener('resize', scheduleRecompute);
+  window.addEventListener('load', scheduleRecompute);
+  scheduleRecompute();
+})();
 </script>
 </x-dc>
 </body>
