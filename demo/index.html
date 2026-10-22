@@ -299,7 +299,7 @@ body{font-family:'Tajawal',sans-serif;background:var(--bg);color:var(--text);min
             <tbody>
               <sc-for list="{{ moneyRows }}" as="e" hint-placeholder-count="10">
                 <tr>
-                  <td class="rk">{{ e.rank }}</td>
+                  <td class="rk">{{ e.rankFlag }} {{ e.rank }}</td>
                   <td class="nm">{{ e.name }}</td>
                   <td class="rg">{{ e.region }}</td>
                   <td>{{ e.target }}</td>
@@ -446,7 +446,7 @@ class Component extends DCLogic {
     const arrow = key => s.sortKey === key ? (s.sortDir === 'desc' ? '▼' : '▲') : '⇅';
 
     const moneyRows = displayRows.map(e => ({
-      rank: e.rank, name: e.name, region: e.region,
+      rank: e.rank, rankFlag: e.rank <= 3 ? '🟢' : (e.rank > rows.length - 3 ? '🔴' : ''), name: e.name, region: e.region,
       target: e.target > 0 ? fmt(e.target) : '—',
       achieved: fmt(e.achieved),
       achievedPct: e.sp !== null ? pct(e.sp) : '—',
