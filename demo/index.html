@@ -299,7 +299,15 @@ body{font-family:'Tajawal',sans-serif;background:var(--bg);color:var(--text);min
             <tbody>
               <sc-for list="{{ moneyRows }}" as="e" hint-placeholder-count="10">
                 <tr>
-                  <td class="rk">{{ e.rankFlag }} {{ e.rank }}</td>
+                  <td class="rk">
+                    {{ e.rank }}
+                    <sc-if value="{{ e.hasRankFlag }}" hint-placeholder-val="{{ false }}">
+                      <svg width="13" height="13" viewBox="0 0 24 24" style="display:inline-block;vertical-align:-2px;margin-inline-start:3px">
+                        <line x1="5" y1="2" x2="5" y2="22" stroke="#6b7280" stroke-width="2.5" stroke-linecap="round"></line>
+                        <path d="M5 4 L20 4 L14.5 8.5 L20 13 L5 13 Z" fill="{{ e.rankFlagColor }}"></path>
+                      </svg>
+                    </sc-if>
+                  </td>
                   <td class="nm">{{ e.name }}</td>
                   <td class="rg">{{ e.region }}</td>
                   <td>{{ e.target }}</td>
@@ -446,7 +454,10 @@ class Component extends DCLogic {
     const arrow = key => s.sortKey === key ? (s.sortDir === 'desc' ? '▼' : '▲') : '⇅';
 
     const moneyRows = displayRows.map(e => ({
-      rank: e.rank, rankFlag: e.rank <= 3 ? '🟢' : (e.rank > rows.length - 3 ? '🔴' : ''), name: e.name, region: e.region,
+      rank: e.rank,
+      hasRankFlag: e.rank <= 3 || e.rank > rows.length - 3,
+      rankFlagColor: e.rank <= 3 ? '#22c55e' : '#ef4444',
+      name: e.name, region: e.region,
       target: e.target > 0 ? fmt(e.target) : '—',
       achieved: fmt(e.achieved),
       achievedPct: e.sp !== null ? pct(e.sp) : '—',
