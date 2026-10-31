@@ -13,48 +13,75 @@
   --cream:#F7F4F1;
   --bg:#FAF8F6;
   --line:#E7E2DC;
+  --shell-bg:#EDEAE6;
+  --good:#2EA043;
+  --warn:#D97706;
+  --bad:#E7302B;
 }
 *{box-sizing:border-box;margin:0;padding:0;}
 body{
   font-family:Tahoma,'Segoe UI',Arial,sans-serif;
-  background:var(--bg);
+  background:var(--shell-bg);
   color:var(--dark);
   direction:rtl;
-  padding:22px 18px 50px;
+  padding:22px 18px;
 }
-.wrap{max-width:1040px;margin:0 auto;}
-header{margin-bottom:18px;}
-header h1{font-size:24px;color:var(--dark);margin-bottom:4px;}
-header p{font-size:13.5px;color:var(--charcoal);line-height:1.7;}
-.banner{
-  background:#fff;
-  border:1px solid var(--line);
-  border-right:5px solid var(--red);
-  border-radius:12px;
-  padding:14px 16px;
-  font-size:13.5px;
-  color:var(--charcoal);
-  line-height:1.8;
-  margin-bottom:20px;
+
+/* ---- app shell ---- */
+.app-shell{
+  max-width:1440px;margin:0 auto;background:#fff;border-radius:26px;
+  box-shadow:0 24px 60px rgba(32,31,31,.10);display:flex;min-height:calc(100vh - 44px);overflow:hidden;
 }
-.banner b{color:var(--dark);}
-.tabs{display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap;}
-.tab-btn{
-  font-family:inherit;
-  background:#fff;
-  border:1px solid var(--line);
-  color:var(--charcoal);
-  padding:10px 18px;
-  border-radius:10px;
-  font-size:14px;
-  font-weight:700;
-  cursor:pointer;
+.sidebar{
+  width:252px;flex:none;border-left:1px solid var(--line);padding:22px 16px;
+  display:flex;flex-direction:column;background:#fff;
 }
-.tab-btn.active{background:var(--dark);color:#fff;border-color:var(--dark);}
+.sidebar .brand{display:flex;align-items:center;gap:10px;margin-bottom:24px;padding:0 6px;}
+.sidebar .brand img{height:26px;width:auto;object-fit:contain;}
+.sidebar .brand b{font-size:14.5px;color:var(--dark);}
+.side-group-lbl{font-size:10px;color:#A9A6A3;font-weight:800;letter-spacing:.5px;margin:16px 8px 8px;}
+.side-link{
+  display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;
+  color:var(--charcoal);font-size:13.5px;font-weight:700;cursor:pointer;margin-bottom:3px;
+}
+.side-link:hover{background:var(--cream);}
+.side-link.active{background:var(--dark);color:#fff;}
+.side-link .ic{width:18px;text-align:center;flex:none;font-size:14px;}
+.side-link .badge{margin-right:auto;background:rgba(0,0,0,.06);color:var(--charcoal);font-size:10px;font-weight:800;border-radius:20px;padding:1px 7px;}
+.side-link.active .badge{background:rgba(255,255,255,.18);color:#fff;}
+.sidebar-foot{margin-top:auto;padding:12px 8px 0;border-top:1px solid var(--line);font-size:10.5px;color:#aaa;line-height:1.8;}
+
+.main{flex:1;min-width:0;display:flex;flex-direction:column;}
+.topbar{display:flex;align-items:center;gap:14px;padding:16px 26px;border-bottom:1px solid var(--line);flex-wrap:wrap;}
+.search-box{flex:1;min-width:0;max-width:340px;display:flex;align-items:center;gap:8px;background:var(--cream);border:1px solid var(--line);border-radius:10px;padding:9px 12px;}
+.search-box input{border:none;background:transparent;outline:none;font-family:inherit;font-size:13px;color:var(--dark);width:100%;min-width:0;}
+.search-box .ic{color:#aaa;font-size:12px;flex:none;}
+.topbar .tb-spacer{flex:1;}
+.user-pill{display:flex;align-items:center;gap:9px;}
+.user-pill .avatar{width:34px;height:34px;border-radius:50%;background:var(--dark);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;flex:none;}
+.user-pill .ui{line-height:1.3;}
+.user-pill .un{font-size:12.5px;font-weight:800;color:var(--dark);}
+.user-pill .ur{font-size:10.5px;color:var(--charcoal);}
+
+.content{padding:22px 26px 44px;flex:1;min-width:0;}
 .panel{display:none;}
 .panel.active{display:block;}
+.page-head{margin-bottom:16px;}
+.page-head h1{font-size:21px;color:var(--dark);margin-bottom:3px;}
+.page-head p{font-size:12.5px;color:var(--charcoal);line-height:1.7;}
 
-/* ---- tab 1: roles ---- */
+.banner{
+  background:#fff;border:1px solid var(--line);border-right:5px solid var(--red);border-radius:12px;
+  padding:14px 16px;font-size:13px;color:var(--charcoal);line-height:1.8;margin-bottom:20px;
+}
+.banner b{color:var(--dark);}
+
+/* ---- shared card ---- */
+.card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px;min-width:0;}
+.card h3{font-size:14px;font-weight:800;color:var(--dark);margin-bottom:3px;}
+.card .card-sub{font-size:11.5px;color:var(--charcoal);margin-bottom:14px;}
+
+/* ---- tab: roles ---- */
 .legend{font-size:11.5px;color:var(--charcoal);margin-bottom:12px;display:flex;gap:16px;flex-wrap:wrap;}
 .legend span{display:inline-flex;align-items:center;gap:5px;}
 .legend .dot{width:7px;height:7px;border-radius:50%;}
@@ -96,8 +123,9 @@ header p{font-size:13.5px;color:var(--charcoal);line-height:1.7;}
 .tool-badge.connected .dot{background:#2ea043;}
 .tool-badge b{font-weight:800;}
 .tool-badge .tnote{color:var(--charcoal);font-weight:400;}
+.no-results{font-size:12.5px;color:#aaa;text-align:center;padding:30px 0;grid-column:1/-1;}
 
-/* ---- tab 2: tasks ---- */
+/* ---- tab: tasks ---- */
 .task-form{
   background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px;
   display:flex;flex-wrap:wrap;gap:10px;margin-bottom:18px;align-items:flex-end;
@@ -129,16 +157,9 @@ header p{font-size:13.5px;color:var(--charcoal);line-height:1.7;}
 .task-card .t-actions button.danger{color:var(--red);}
 .empty-col{font-size:12px;color:#aaa;text-align:center;padding:20px 0;}
 
-/* ---- tab 3: performance ---- */
+/* ---- tab: performance ---- */
 .sec-title{font-size:15px;font-weight:800;margin:4px 0 12px;color:var(--dark);}
 .sec-sub{font-size:12px;color:var(--charcoal);margin-bottom:12px;}
-.live-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:10px;}
-.live-card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px;text-align:center;}
-.live-card .num{font-size:24px;font-weight:900;color:var(--red);}
-.live-card .lbl{font-size:12px;color:var(--charcoal);margin-top:4px;}
-.refresh-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
-.refresh-row button{background:var(--dark);color:#fff;border:none;border-radius:8px;padding:7px 14px;font-size:12px;cursor:pointer;}
-.updated{font-size:11px;color:#999;}
 .kpi-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px;margin-top:8px;}
 .kpi-card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px;}
 .kpi-card .k-title{font-size:13px;font-weight:700;color:var(--dark);margin-bottom:2px;}
@@ -150,27 +171,21 @@ header p{font-size:13.5px;color:var(--charcoal);line-height:1.7;}
 .bar-fill{height:100%;background:var(--red);border-radius:5px;}
 .note-small{font-size:11px;color:#999;margin-top:16px;line-height:1.7;}
 .offline-note{background:#FFF7E6;border:1px solid #F0D9A0;border-radius:10px;padding:10px 12px;font-size:12px;color:#8a6d1f;margin-bottom:12px;}
-
-/* ---- tab 3: overview tiles + charts ---- */
 .perf-overview{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:18px;}
 .ov-card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px;text-align:center;}
 .ov-card .ov-num{font-size:26px;font-weight:900;color:var(--dark);line-height:1.2;}
 .ov-card .ov-lbl{font-size:11.5px;color:var(--charcoal);margin-top:4px;}
-.ov-card.st-good .ov-num{color:#2EA043;}
-.ov-card.st-warn .ov-num{color:#D97706;}
-.ov-card.st-bad .ov-num{color:#E7302B;}
-
+.ov-card.st-good .ov-num{color:var(--good);}
+.ov-card.st-bad .ov-num{color:var(--bad);}
 .chart-card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px;margin-bottom:18px;}
 .chart-card h3{font-size:14px;font-weight:800;color:var(--dark);margin-bottom:3px;}
 .chart-card .chart-sub{font-size:11.5px;color:var(--charcoal);margin-bottom:14px;}
-
 .rank-row{display:flex;align-items:center;gap:10px;margin-bottom:9px;}
 .rank-row:last-child{margin-bottom:0;}
 .rank-row .rk-name{width:150px;flex:none;font-size:12px;color:var(--dark);font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 .rank-row .rk-track{flex:1;height:10px;background:var(--cream);border-radius:6px;overflow:hidden;}
 .rank-row .rk-fill{height:100%;border-radius:6px;transition:width .3s ease;}
 .rank-row .rk-pct{width:46px;flex:none;text-align:left;font-size:12px;font-weight:800;}
-
 .donut-wrap{display:flex;align-items:center;gap:28px;flex-wrap:wrap;}
 .donut-svg-box{position:relative;flex:none;width:120px;height:120px;}
 .donut-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;}
@@ -183,83 +198,229 @@ header p{font-size:13.5px;color:var(--charcoal);line-height:1.7;}
 .donut-legend .lg-num{font-weight:800;}
 .kpi-pct-badge{font-size:12px;font-weight:800;margin-right:auto;}
 .kpi-pct-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;}
-@media (max-width:720px){.board{grid-template-columns:1fr;}}
+
+/* ---- overview page ---- */
+.ov-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:16px;}
+.ov-kpi-card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px;}
+.ov-kpi-card.accent{background:var(--dark);border-color:var(--dark);}
+.ok-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;}
+.ok-lbl{font-size:12.5px;font-weight:700;color:var(--charcoal);}
+.ov-kpi-card.accent .ok-lbl{color:rgba(255,255,255,.72);}
+.ok-icon{width:26px;height:26px;border-radius:50%;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--charcoal);cursor:pointer;flex:none;}
+.ov-kpi-card.accent .ok-icon{border-color:rgba(255,255,255,.3);color:#fff;}
+.ok-num{font-size:27px;font-weight:900;color:var(--dark);margin-bottom:6px;}
+.ov-kpi-card.accent .ok-num{color:#fff;}
+.ok-sub{font-size:11px;color:var(--charcoal);}
+.ov-kpi-card.accent .ok-sub{color:rgba(255,255,255,.62);}
+
+.ov-row2{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:16px;margin-bottom:16px;align-items:stretch;}
+
+.bars-wrap{display:flex;align-items:flex-end;gap:12px;height:160px;padding-top:30px;}
+.bar-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:8px;height:100%;justify-content:flex-end;position:relative;}
+.bar-item .bubble{position:absolute;top:-4px;background:#fff;border:1px solid var(--line);border-radius:8px;padding:3px 7px;font-size:10.5px;font-weight:800;color:var(--dark);box-shadow:0 4px 10px rgba(0,0,0,.08);white-space:nowrap;}
+.bar-item .col{width:22px;border-radius:8px 8px 3px 3px;min-height:6px;}
+.bar-item .col.solid-1{background:var(--dark);}
+.bar-item .col.solid-2{background:var(--red);}
+.bar-item .col.hatched{background-color:#fff;border:1px solid var(--line);background-image:repeating-linear-gradient(45deg, var(--line) 0 3px, transparent 3px 7px);}
+
+.reminder-box{background:var(--cream);border:1px solid var(--line);border-radius:12px;padding:14px;}
+.reminder-box .rb-title{font-size:13.5px;font-weight:800;color:var(--dark);margin-bottom:5px;line-height:1.5;}
+.reminder-box .rb-meta{font-size:11.5px;color:var(--charcoal);margin-bottom:12px;}
+.reminder-box button{background:var(--dark);color:#fff;border:none;border-radius:8px;padding:8px 14px;font-size:12px;font-weight:800;cursor:pointer;}
+
+.attn-row{display:flex;align-items:center;gap:9px;padding:8px 0;border-bottom:1px solid var(--line);min-width:0;}
+.attn-row:last-child{border-bottom:none;padding-bottom:0;}
+.attn-row .attn-title{flex:1;min-width:0;font-size:12px;font-weight:700;color:var(--dark);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+
+.status-pill{font-size:10px;font-weight:800;border-radius:20px;padding:3px 9px;flex:none;white-space:nowrap;}
+
+.ov-row3{display:grid;grid-template-columns:1.4fr 1fr;gap:16px;}
+.ov-col-stack{display:flex;flex-direction:column;gap:16px;min-width:0;}
+.team-row{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--line);min-width:0;}
+.team-row:last-child{border-bottom:none;padding-bottom:0;}
+.team-row canvas{flex:none;background:var(--cream);border-radius:50%;}
+.team-info{flex:1;min-width:0;}
+.team-info .team-name{font-size:13px;font-weight:800;color:var(--dark);}
+.team-info .team-mission{font-size:11px;color:var(--charcoal);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0;}
+
+.gauge-wrap{display:flex;flex-direction:column;align-items:center;}
+.gauge-box{position:relative;width:140px;height:140px;}
+.gauge-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+.gauge-center .gc-num{font-size:26px;font-weight:900;}
+.gauge-center .gc-lbl{font-size:10px;color:var(--charcoal);margin-top:2px;}
+.gauge-legend{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:14px;font-size:10.5px;color:var(--charcoal);}
+.gl-item{display:flex;align-items:center;gap:5px;}
+.gl-dot{width:8px;height:8px;border-radius:50%;flex:none;}
+
+.priority-card{background:var(--dark);border-radius:16px;padding:18px;color:#fff;flex:1;display:flex;flex-direction:column;justify-content:center;}
+.priority-card .pr-lbl{font-size:11px;color:rgba(255,255,255,.6);font-weight:700;margin-bottom:8px;}
+.priority-card .pr-title{font-size:16px;font-weight:800;margin-bottom:4px;}
+.priority-card .pr-meta{font-size:11.5px;color:rgba(255,255,255,.65);margin-bottom:14px;}
+.priority-card button{background:#fff;color:var(--dark);border:none;border-radius:8px;padding:8px 16px;font-size:12px;font-weight:800;cursor:pointer;align-self:flex-start;}
+
+@media (max-width:980px){
+  .ov-row2{grid-template-columns:1fr;}
+  .ov-row3{grid-template-columns:1fr;}
+}
+@media (max-width:860px){
+  .app-shell{flex-direction:column;border-radius:18px;}
+  .sidebar{width:100%;flex-direction:row;align-items:center;overflow-x:auto;border-left:none;border-bottom:1px solid var(--line);padding:14px 16px;}
+  .sidebar .brand{margin-bottom:0;}
+  .side-group-lbl{display:none;}
+  .side-link{margin-bottom:0;white-space:nowrap;}
+  .sidebar-foot{display:none;}
+  .content{padding:18px 16px 36px;}
+}
+@media (max-width:720px){
+  .board{grid-template-columns:1fr;}
+  .ov-kpis{grid-template-columns:repeat(2,1fr);}
+}
 </style>
 </head>
 <body>
-<div class="wrap">
-  <header>
-    <h1>فريق Lines Ideas التسويقي الرقمي</h1>
-    <p>متجر خطوط الأفكار (linesideas.com) — 11 دورًا تسويقيًا جاهزًا للتشغيل، مع تتبع مهام ومؤشرات أداء.</p>
-  </header>
+<div class="app-shell">
 
-  <div class="banner">
-    <b>طريقة التشغيل:</b> هذه اللوحة ليست بوتًا يعمل تلقائيًا — هي مرجعك ولوحة تتبعك. لتشغيل أي موظف فعليًا: روح لتبويب
-    <b>«الأدوار والبرومبتات»</b>، انسخ أحد برومبتات الدور، عدّل ما بين القوسين [ ]، وأرسله في الشات مع Claude داخل مشروع Lines Ideas.
-    استخدم <b>«لوحة المهام»</b> لتسجيل وتتبع كل طلب، و<b>«لوحة الأداء»</b> للمؤشرات اليدوية لكل دور.
-  </div>
+  <aside class="sidebar">
+    <div class="brand"><img src="./lines-logo.png" alt="Lines Ideas"><b>Lines Ideas</b></div>
+    <div class="side-group-lbl">القائمة</div>
+    <div class="side-link active" data-tab="overview"><span class="ic">🏠</span> نظرة عامة</div>
+    <div class="side-link" data-tab="roles"><span class="ic">🧩</span> الأدوار والبرومبتات</div>
+    <div class="side-link" data-tab="tasks"><span class="ic">🗂️</span> لوحة المهام<span class="badge" id="navTaskBadge">0</span></div>
+    <div class="side-link" data-tab="perf"><span class="ic">📈</span> لوحة الأداء</div>
+    <div class="sidebar-foot">فريق التسويق الرقمي<br>Lines Ideas · linesideas.com</div>
+  </aside>
 
-  <div class="tabs">
-    <button class="tab-btn active" data-tab="roles">الأدوار والبرومبتات</button>
-    <button class="tab-btn" data-tab="tasks">لوحة المهام</button>
-    <button class="tab-btn" data-tab="perf">لوحة الأداء</button>
-  </div>
-
-  <!-- TAB 1 -->
-  <div class="panel active" id="panel-roles">
-    <div class="legend">
-      <span><span class="dot g"></span> الأداة متصلة الآن فعليًا (داخل Cowork)</span>
-      <span><span class="dot b"></span> أداة مقترحة لرفع كفاءة هذا الدور</span>
-    </div>
-    <div class="roles-grid" id="rolesGrid"></div>
-  </div>
-
-  <!-- TAB 2 -->
-  <div class="panel" id="panel-tasks">
-    <div class="task-form">
-      <div class="field"><label>عنوان المهمة</label><input type="text" id="taskTitle" placeholder="مثال: وصف منتج لآلة قهوة X"></div>
-      <div class="field"><label>الموظف المسؤول</label><select id="taskRole"></select></div>
-      <div class="field"><label>الأولوية</label>
-        <select id="taskPriority">
-          <option value="عالية">عالية</option>
-          <option value="متوسطة" selected>متوسطة</option>
-          <option value="منخفضة">منخفضة</option>
-        </select>
+  <div class="main">
+    <div class="topbar">
+      <div class="search-box"><span class="ic">🔍</span><input type="text" id="globalSearch" placeholder="ابحث عن دور أو أداة..."></div>
+      <div class="tb-spacer"></div>
+      <div class="user-pill">
+        <div class="avatar">أ</div>
+        <div class="ui"><div class="un">أسيل بن محسن</div><div class="ur">مدير النظام</div></div>
       </div>
-      <div class="field"><label>تاريخ التسليم</label><input type="date" id="taskDate"></div>
-      <button onclick="addTask()">إضافة مهمة</button>
-    </div>
-    <div class="board">
-      <div class="col"><h3>جديد <span id="cnt-new">0</span></h3><div id="col-new"></div></div>
-      <div class="col"><h3>قيد التنفيذ <span id="cnt-doing">0</span></h3><div id="col-doing"></div></div>
-      <div class="col"><h3>مكتمل <span id="cnt-done">0</span></h3><div id="col-done"></div></div>
-    </div>
-  </div>
-
-  <!-- TAB 3 -->
-  <div class="panel" id="panel-perf">
-    <div class="sec-title">مؤشرات حية من متجر Zid</div>
-    <div class="offline-note">النسخة المنشورة هنا لا تتصل مباشرة بمتجر Zid (هذا متاح فقط داخل لوحة Cowork على جهازك). للمؤشرات الحية افتح لوحة Cowork.</div>
-
-    <div class="sec-title" style="margin-top:14px;">نظرة عامة على الأداء</div>
-    <div class="perf-overview" id="perfOverview"></div>
-
-    <div class="chart-card">
-      <h3>ترتيب الأدوار حسب نسبة الإنجاز</h3>
-      <div class="chart-sub">الفعلي مقابل الهدف لكل دور، من الأعلى إنجازًا إلى الأقل</div>
-      <div id="rankChart"></div>
     </div>
 
-    <div class="chart-card">
-      <h3>توزيع الأدوار حسب الحالة</h3>
-      <div class="chart-sub">عدد الأدوار على المسار، بحاجة متابعة، أو متأخرة عن هدف الشهر</div>
-      <div class="donut-wrap" id="donutWrap"></div>
-    </div>
+    <div class="content">
 
-    <div class="sec-title" style="margin-top:4px;">مؤشرات الأداء اليدوية — لكل دور</div>
-    <div class="sec-sub">حدّث «الفعلي» من جانبك شهريًا لمتابعة أداء كل موظف مقابل هدفه.</div>
-    <div class="kpi-grid" id="kpiGrid"></div>
-    <div class="note-small">المؤشرات اليدوية تُحفظ في متصفحك فقط على هذا الجهاز/الرابط الذي تفتحه منه.</div>
+      <!-- OVERVIEW -->
+      <div class="panel active" id="panel-overview">
+        <div class="page-head">
+          <h1>نظرة عامة</h1>
+          <p>ملخص سريع لأداء فريق Lines Ideas التسويقي ومهامه الحالية.</p>
+        </div>
+        <div class="banner">
+          <b>طريقة التشغيل:</b> هذه اللوحة ليست بوتًا يعمل تلقائيًا — هي مرجعك ولوحة تتبعك. لتشغيل أي موظف فعليًا: روح لتبويب
+          <b>«الأدوار والبرومبتات»</b>، انسخ أحد برومبتات الدور، عدّل ما بين القوسين [ ]، وأرسله في الشات مع Claude داخل مشروع Lines Ideas.
+          استخدم <b>«لوحة المهام»</b> لتسجيل وتتبع كل طلب، و<b>«لوحة الأداء»</b> للمؤشرات اليدوية لكل دور.
+        </div>
+
+        <div class="ov-kpis" id="ovKpis"></div>
+
+        <div class="ov-row2">
+          <div class="card">
+            <h3>أداء الأدوار هذا الشهر</h3>
+            <div class="card-sub">أعلى 7 أدوار حسب نسبة الإنجاز من الهدف</div>
+            <div class="bars-wrap" id="ovBars"></div>
+          </div>
+          <div class="card">
+            <h3>أحدث مهمة جديدة</h3>
+            <div class="card-sub">آخر طلب مُسجّل في لوحة المهام</div>
+            <div class="reminder-box" id="ovReminder"></div>
+          </div>
+          <div class="card">
+            <h3>أدوار بحاجة متابعة</h3>
+            <div class="card-sub">الأقل إنجازًا مقابل هدف الشهر</div>
+            <div id="ovAttn"></div>
+          </div>
+        </div>
+
+        <div class="ov-row3">
+          <div class="card">
+            <h3>فريق العمل</h3>
+            <div class="card-sub">كل الأدوار وحالتها الحالية مقابل هدف الشهر</div>
+            <div id="ovTeam"></div>
+          </div>
+          <div class="ov-col-stack">
+            <div class="card">
+              <h3>التقدّم العام</h3>
+              <div class="card-sub">متوسط الإنجاز عبر كل الأدوار</div>
+              <div class="gauge-wrap" id="ovGauge"></div>
+            </div>
+            <div class="priority-card" id="ovPriority"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 1: ROLES -->
+      <div class="panel" id="panel-roles">
+        <div class="page-head">
+          <h1>الأدوار والبرومبتات</h1>
+          <p>11 دورًا تسويقيًا جاهزًا للتشغيل — انسخ أي برومبت وعدّل ما بين القوسين [ ] ثم أرسله للشات.</p>
+        </div>
+        <div class="legend">
+          <span><span class="dot g"></span> الأداة متصلة الآن فعليًا (داخل Cowork)</span>
+          <span><span class="dot b"></span> أداة مقترحة لرفع كفاءة هذا الدور</span>
+        </div>
+        <div class="roles-grid" id="rolesGrid"></div>
+      </div>
+
+      <!-- TAB 2: TASKS -->
+      <div class="panel" id="panel-tasks">
+        <div class="page-head">
+          <h1>لوحة المهام</h1>
+          <p>سجّل وتابع كل طلب تسويقي من جديد إلى قيد التنفيذ إلى مكتمل.</p>
+        </div>
+        <div class="task-form">
+          <div class="field"><label>عنوان المهمة</label><input type="text" id="taskTitle" placeholder="مثال: وصف منتج لآلة قهوة X"></div>
+          <div class="field"><label>الموظف المسؤول</label><select id="taskRole"></select></div>
+          <div class="field"><label>الأولوية</label>
+            <select id="taskPriority">
+              <option value="عالية">عالية</option>
+              <option value="متوسطة" selected>متوسطة</option>
+              <option value="منخفضة">منخفضة</option>
+            </select>
+          </div>
+          <div class="field"><label>تاريخ التسليم</label><input type="date" id="taskDate"></div>
+          <button onclick="addTask()">إضافة مهمة</button>
+        </div>
+        <div class="board">
+          <div class="col"><h3>جديد <span id="cnt-new">0</span></h3><div id="col-new"></div></div>
+          <div class="col"><h3>قيد التنفيذ <span id="cnt-doing">0</span></h3><div id="col-doing"></div></div>
+          <div class="col"><h3>مكتمل <span id="cnt-done">0</span></h3><div id="col-done"></div></div>
+        </div>
+      </div>
+
+      <!-- TAB 3: PERFORMANCE -->
+      <div class="panel" id="panel-perf">
+        <div class="page-head">
+          <h1>لوحة الأداء</h1>
+          <p>حدّث «الفعلي» من جانبك شهريًا لمتابعة أداء كل موظف مقابل هدفه.</p>
+        </div>
+        <div class="sec-title">مؤشرات حية من متجر Zid</div>
+        <div class="offline-note">النسخة المنشورة هنا لا تتصل مباشرة بمتجر Zid (هذا متاح فقط داخل لوحة Cowork على جهازك). للمؤشرات الحية افتح لوحة Cowork.</div>
+
+        <div class="sec-title" style="margin-top:14px;">نظرة عامة على الأداء</div>
+        <div class="perf-overview" id="perfOverview"></div>
+
+        <div class="chart-card">
+          <h3>ترتيب الأدوار حسب نسبة الإنجاز</h3>
+          <div class="chart-sub">الفعلي مقابل الهدف لكل دور، من الأعلى إنجازًا إلى الأقل</div>
+          <div id="rankChart"></div>
+        </div>
+
+        <div class="chart-card">
+          <h3>توزيع الأدوار حسب الحالة</h3>
+          <div class="chart-sub">عدد الأدوار على المسار، بحاجة متابعة، أو متأخرة عن هدف الشهر</div>
+          <div class="donut-wrap" id="donutWrap"></div>
+        </div>
+
+        <div class="sec-title" style="margin-top:4px;">مؤشرات الأداء اليدوية — لكل دور</div>
+        <div class="sec-sub">حدّث «الفعلي» من جانبك شهريًا لمتابعة أداء كل موظف مقابل هدفه.</div>
+        <div class="kpi-grid" id="kpiGrid"></div>
+        <div class="note-small">المؤشرات اليدوية تُحفظ في متصفحك فقط على هذا الجهاز/الرابط الذي تفتحه منه.</div>
+      </div>
+
+    </div>
   </div>
 </div>
 
@@ -372,65 +533,84 @@ function drawIcon(ctx,type,cx,cy,r,color){
   ctx.restore();
 }
 
-/* ============ تبويبات ============ */
-document.querySelectorAll('.tab-btn').forEach(function(btn){
-  btn.addEventListener('click',function(){
-    document.querySelectorAll('.tab-btn').forEach(function(b){b.classList.remove('active');});
-    document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('active');});
-    btn.classList.add('active');
-    document.getElementById('panel-'+btn.dataset.tab).classList.add('active');
-  });
+/* ============ التنقّل (الشريط الجانبي) ============ */
+function switchTab(name){
+  document.querySelectorAll('.side-link').forEach(function(b){ b.classList.toggle('active', b.dataset.tab===name); });
+  document.querySelectorAll('.panel').forEach(function(p){ p.classList.toggle('active', p.id==='panel-'+name); });
+}
+document.querySelectorAll('.side-link').forEach(function(btn){
+  btn.addEventListener('click', function(){ switchTab(btn.dataset.tab); });
 });
 
-/* ============ تبويب 1: الأدوار ============ */
+/* ============ تبويب: الأدوار ============ */
 var rolesGrid = document.getElementById('rolesGrid');
-ROLES.forEach(function(r){
-  var card = document.createElement('div');
-  card.className='role-card';
-  var head = document.createElement('div');
-  head.className='role-head';
-  var canvas = document.createElement('canvas');
-  canvas.width=56; canvas.height=56; canvas.style.width='56px'; canvas.style.height='56px';
-  head.appendChild(canvas);
-  var names = document.createElement('div');
-  names.className='names';
-  names.innerHTML = '<div class="title">'+r.title+'</div><div class="animal">'+r.animal+'</div>';
-  head.appendChild(names);
-  card.appendChild(head);
-
-  var mission = document.createElement('div');
-  mission.className='mission';
-  mission.textContent = r.mission;
-  card.appendChild(mission);
-
-  var kpi = document.createElement('div');
-  kpi.className='kpi-pill';
-  kpi.textContent = 'مؤشر رئيسي: '+r.kpiLabel;
-  card.appendChild(kpi);
-
-  if(r.tool){
-    var tool = document.createElement('div');
-    tool.className = 'tool-badge' + (r.tool.connected ? ' connected' : '');
-    tool.innerHTML = '<span class="dot"></span><b>'+r.tool.name+'</b><span class="tnote"> — '+r.tool.note+'</span>';
-    card.appendChild(tool);
-  }
-
-  r.prompts.forEach(function(p,pi){
-    var box = document.createElement('div');
-    box.className='prompt-box';
-    var ta = document.createElement('textarea');
-    ta.readOnly = true; ta.rows=2; ta.value = p;
-    box.appendChild(ta);
-    var btn = document.createElement('button');
-    btn.className='copy-btn';
-    btn.textContent='نسخ البرومبت';
-    btn.onclick = function(){ copyText(p, btn); };
-    box.appendChild(btn);
-    card.appendChild(box);
+function renderRolesGrid(filter){
+  var q = (filter||'').trim().toLowerCase();
+  rolesGrid.innerHTML = '';
+  var matched = ROLES.filter(function(r){
+    if(!q) return true;
+    return (r.title+' '+r.animal+' '+(r.tool?r.tool.name:'')).toLowerCase().indexOf(q) !== -1;
   });
+  if(matched.length===0){
+    rolesGrid.innerHTML = '<div class="no-results">لا توجد أدوار مطابقة لبحثك</div>';
+    return;
+  }
+  matched.forEach(function(r){
+    var card = document.createElement('div');
+    card.className='role-card';
+    var head = document.createElement('div');
+    head.className='role-head';
+    var canvas = document.createElement('canvas');
+    canvas.width=56; canvas.height=56; canvas.style.width='56px'; canvas.style.height='56px';
+    head.appendChild(canvas);
+    var names = document.createElement('div');
+    names.className='names';
+    names.innerHTML = '<div class="title">'+r.title+'</div><div class="animal">'+r.animal+'</div>';
+    head.appendChild(names);
+    card.appendChild(head);
 
-  rolesGrid.appendChild(card);
-  setTimeout(function(){ drawIcon(canvas.getContext('2d'), r.icon, 28, 30, 17, '#E7302B'); }, 0);
+    var mission = document.createElement('div');
+    mission.className='mission';
+    mission.textContent = r.mission;
+    card.appendChild(mission);
+
+    var kpi = document.createElement('div');
+    kpi.className='kpi-pill';
+    kpi.textContent = 'مؤشر رئيسي: '+r.kpiLabel;
+    card.appendChild(kpi);
+
+    if(r.tool){
+      var tool = document.createElement('div');
+      tool.className = 'tool-badge' + (r.tool.connected ? ' connected' : '');
+      tool.innerHTML = '<span class="dot"></span><b>'+r.tool.name+'</b><span class="tnote"> — '+r.tool.note+'</span>';
+      card.appendChild(tool);
+    }
+
+    r.prompts.forEach(function(p){
+      var box = document.createElement('div');
+      box.className='prompt-box';
+      var ta = document.createElement('textarea');
+      ta.readOnly = true; ta.rows=2; ta.value = p;
+      box.appendChild(ta);
+      var btn = document.createElement('button');
+      btn.className='copy-btn';
+      btn.textContent='نسخ البرومبت';
+      btn.onclick = function(){ copyText(p, btn); };
+      box.appendChild(btn);
+      card.appendChild(box);
+    });
+
+    rolesGrid.appendChild(card);
+    drawIcon(canvas.getContext('2d'), r.icon, 28, 30, 17, '#E7302B');
+  });
+}
+renderRolesGrid('');
+
+var searchInput = document.getElementById('globalSearch');
+searchInput.addEventListener('input', function(){
+  var q = searchInput.value;
+  if(q.trim()) switchTab('roles');
+  renderRolesGrid(q);
 });
 
 function copyText(text, btn){
@@ -447,7 +627,7 @@ function fallbackCopy(text, cb){
   }catch(e){ alert('انسخ النص يدويًا:\n\n'+text); }
 }
 
-/* ============ تبويب 2: المهام ============ */
+/* ============ تبويب: المهام ============ */
 var TASKS_KEY = 'li_marketing_tasks_v1';
 var taskRoleSelect = document.getElementById('taskRole');
 ROLES.forEach(function(r){
@@ -495,6 +675,9 @@ function renderTasks(){
       col.appendChild(card);
     });
   });
+  var badge = document.getElementById('navTaskBadge');
+  if(badge) badge.textContent = tasks.length;
+  renderOverview();
 }
 function moveTask(id, newStatus){
   var tasks = loadTasks();
@@ -522,9 +705,8 @@ function addTask(){
   document.getElementById('taskDate').value='';
   renderTasks();
 }
-renderTasks();
 
-/* ============ تبويب 3: الأداء ============ */
+/* ============ تبويب: الأداء ============ */
 var KPI_KEY = 'li_marketing_kpis_v1';
 function loadKpis(){
   try{ return JSON.parse(localStorage.getItem(KPI_KEY)) || {}; }catch(e){ return {}; }
@@ -548,7 +730,7 @@ ROLES.forEach(function(r){
 });
 saveKpis(kpiState);
 
-/* ============ حالة الأداء (ألوان ثابتة الدلالة: أخضر=على المسار، كهرماني=بحاجة متابعة، أحمر=متأخر) ============ */
+/* ألوان ثابتة الدلالة: أخضر=على المسار، كهرماني=بحاجة متابعة، أحمر=متأخر */
 var STATUS = {
   good: {color:'#2EA043', label:'على المسار', icon:'✅'},
   warn: {color:'#D97706', label:'بحاجة متابعة', icon:'⚠️'},
@@ -575,30 +757,34 @@ function updateBar(id){
   var state = loadKpis();
   state[id] = {actual:a, target:t};
   saveKpis(state);
-  refreshPerfVisuals();
+  refreshAll();
 }
 ROLES.forEach(function(r){
   document.getElementById('act-'+r.id).addEventListener('input', function(){ updateBar(r.id); });
   document.getElementById('tgt-'+r.id).addEventListener('input', function(){ updateBar(r.id); });
-  updateBar(r.id);
 });
 
-/* ============ نظرة عامة + رسم الترتيب + الدونت ============ */
-function refreshPerfVisuals(){
+/* ============ حساب مشترك لحالة الأدوار ============ */
+function computeRoleStats(){
   var state = loadKpis();
   var rows = ROLES.map(function(r){
     var k = state[r.id] || {actual:0, target:r.kpiTarget};
     var t = k.target || 1;
     var pctRaw = (k.actual/t)*100;
-    return { id:r.id, title:r.title, pctRaw:pctRaw, status:statusFor(pctRaw) };
+    return { id:r.id, icon:r.icon, title:r.title, mission:r.mission, pctRaw:pctRaw, status:statusFor(pctRaw) };
   });
-
-  /* نظرة عامة */
   var total = rows.length;
   var avgPct = rows.reduce(function(s,r){ return s + Math.max(0, r.pctRaw); }, 0) / total;
   var goodCount = rows.filter(function(r){ return r.status==='good'; }).length;
   var warnCount = rows.filter(function(r){ return r.status==='warn'; }).length;
   var badCount  = rows.filter(function(r){ return r.status==='bad'; }).length;
+  return {rows:rows, total:total, avgPct:avgPct, goodCount:goodCount, warnCount:warnCount, badCount:badCount};
+}
+
+/* ============ لوحة الأداء: نظرة عامة + رسم الترتيب + الدونت ============ */
+function refreshPerfVisuals(){
+  var agg = computeRoleStats();
+  var total = agg.total, goodCount = agg.goodCount, warnCount = agg.warnCount, badCount = agg.badCount, avgPct = agg.avgPct;
   var avgStatus = STATUS[statusFor(avgPct)];
   document.getElementById('perfOverview').innerHTML =
     '<div class="ov-card"><div class="ov-num">'+total+'</div><div class="ov-lbl">عدد الأدوار</div></div>'+
@@ -606,8 +792,7 @@ function refreshPerfVisuals(){
     '<div class="ov-card st-good"><div class="ov-num">'+goodCount+'</div><div class="ov-lbl">✅ على المسار</div></div>'+
     '<div class="ov-card st-bad"><div class="ov-num">'+(warnCount+badCount)+'</div><div class="ov-lbl">⚠️ بحاجة متابعة</div></div>';
 
-  /* رسم الترتيب */
-  var sorted = rows.slice().sort(function(a,b){ return b.pctRaw - a.pctRaw; });
+  var sorted = agg.rows.slice().sort(function(a,b){ return b.pctRaw - a.pctRaw; });
   document.getElementById('rankChart').innerHTML = sorted.map(function(r){
     var st = STATUS[r.status];
     var w = Math.max(0, Math.min(100, r.pctRaw));
@@ -618,7 +803,6 @@ function refreshPerfVisuals(){
     '</div>';
   }).join('');
 
-  /* دونت الحالة */
   var segs = [
     {key:'good', count:goodCount},
     {key:'warn', count:warnCount},
@@ -646,7 +830,100 @@ function refreshPerfVisuals(){
       }).join('')+
     '</div>';
 }
-refreshPerfVisuals();
+
+/* ============ النظرة العامة (صفحة الهبوط الرئيسية) ============ */
+function renderOverview(){
+  var tasks = loadTasks();
+  var tCounts = {new:0, doing:0, done:0};
+  tasks.forEach(function(t){ tCounts[t.status] = (tCounts[t.status]||0)+1; });
+  var totalTasks = tasks.length;
+
+  document.getElementById('ovKpis').innerHTML =
+    '<div class="ov-kpi-card accent"><div class="ok-top"><div class="ok-lbl">إجمالي المهام</div><div class="ok-icon" onclick="switchTab(\'tasks\')">↗</div></div><div class="ok-num">'+totalTasks+'</div><div class="ok-sub">في لوحة المهام</div></div>'+
+    '<div class="ov-kpi-card"><div class="ok-top"><div class="ok-lbl">مهام مكتملة</div><div class="ok-icon" onclick="switchTab(\'tasks\')">↗</div></div><div class="ok-num">'+tCounts.done+'</div><div class="ok-sub">من إجمالي '+totalTasks+'</div></div>'+
+    '<div class="ov-kpi-card"><div class="ok-top"><div class="ok-lbl">قيد التنفيذ</div><div class="ok-icon" onclick="switchTab(\'tasks\')">↗</div></div><div class="ok-num">'+tCounts.doing+'</div><div class="ok-sub">يعمل عليها الفريق الآن</div></div>'+
+    '<div class="ov-kpi-card"><div class="ok-top"><div class="ok-lbl">مهام جديدة</div><div class="ok-icon" onclick="switchTab(\'tasks\')">↗</div></div><div class="ok-num">'+tCounts.new+'</div><div class="ok-sub">بانتظار البدء</div></div>';
+
+  var agg = computeRoleStats();
+
+  var top7 = agg.rows.slice().sort(function(a,b){ return b.pctRaw - a.pctRaw; }).slice(0,7);
+  var maxPct = Math.max(100, top7.length ? top7[0].pctRaw : 100);
+  document.getElementById('ovBars').innerHTML = top7.map(function(r,i){
+    var h = Math.max(6, (Math.min(r.pctRaw,maxPct)/maxPct)*100);
+    var colCls = (r.pctRaw<=0) ? 'hatched' : (i===0 ? 'solid-1' : (i===1 ? 'solid-2' : 'hatched'));
+    var bubble = (i===0 && r.pctRaw>0) ? '<div class="bubble">'+Math.round(r.pctRaw)+'%</div>' : '';
+    return '<div class="bar-item">'+bubble+
+      '<div class="col '+colCls+'" style="height:'+h+'%" title="'+r.title+': '+Math.round(r.pctRaw)+'%"></div>'+
+      '<canvas class="bar-ic" width="22" height="22" data-icon="'+r.icon+'"></canvas>'+
+    '</div>';
+  }).join('');
+  Array.prototype.forEach.call(document.querySelectorAll('#ovBars .bar-ic'), function(cv){
+    drawIcon(cv.getContext('2d'), cv.dataset.icon, 11, 12, 7, '#585757');
+  });
+
+  var newTasks = tasks.filter(function(t){ return t.status==='new'; });
+  var newest = newTasks.length ? newTasks[newTasks.length-1] : null;
+  var remEl = document.getElementById('ovReminder');
+  if(newest){
+    remEl.innerHTML = '<div class="rb-title">'+newest.title+'</div>'+
+      '<div class="rb-meta">'+newest.role+' · أولوية '+newest.priority+(newest.date?' · '+newest.date:'')+'</div>'+
+      '<button onclick="switchTab(\'tasks\')">فتح لوحة المهام</button>';
+  } else {
+    remEl.innerHTML = '<div class="rb-title">لا توجد مهام جديدة حاليًا</div>'+
+      '<div class="rb-meta">كل المهام إما قيد التنفيذ أو مكتملة</div>'+
+      '<button onclick="switchTab(\'tasks\')">فتح لوحة المهام</button>';
+  }
+
+  var needing = agg.rows.slice().sort(function(a,b){ return a.pctRaw - b.pctRaw; }).slice(0,5);
+  document.getElementById('ovAttn').innerHTML = needing.map(function(r){
+    var st = STATUS[r.status];
+    return '<div class="attn-row">'+
+      '<div class="attn-title">'+r.title+'</div>'+
+      '<div class="status-pill" style="background:'+st.color+'22;color:'+st.color+'">'+Math.round(r.pctRaw)+'%</div></div>';
+  }).join('');
+
+  document.getElementById('ovTeam').innerHTML = agg.rows.map(function(r){
+    var st = STATUS[r.status];
+    return '<div class="team-row"><canvas class="team-ic" width="30" height="30" data-icon="'+r.icon+'"></canvas>'+
+      '<div class="team-info"><div class="team-name">'+r.title+'</div><div class="team-mission">'+r.mission+'</div></div>'+
+      '<div class="status-pill" style="background:'+st.color+'22;color:'+st.color+'">'+st.icon+' '+st.label+'</div></div>';
+  }).join('');
+  Array.prototype.forEach.call(document.querySelectorAll('#ovTeam .team-ic'), function(cv){
+    drawIcon(cv.getContext('2d'), cv.dataset.icon, 15, 16, 9, '#585757');
+  });
+
+  var avgStatus = STATUS[statusFor(agg.avgPct)];
+  var segs = [{key:'good',count:agg.goodCount},{key:'warn',count:agg.warnCount},{key:'bad',count:agg.badCount}];
+  var rG = 52, circG = 2*Math.PI*rG, cumG = 0;
+  var gCircles = segs.map(function(s){
+    var len = (s.count/agg.total)*circG;
+    var html = '<circle cx="70" cy="70" r="'+rG+'" fill="none" stroke="'+STATUS[s.key].color+'" stroke-width="18" '+
+      'stroke-dasharray="'+len+' '+(circG-len)+'" stroke-dashoffset="'+(-cumG)+'" transform="rotate(-90 70 70)">'+
+      '<title>'+STATUS[s.key].label+': '+s.count+'</title></circle>';
+    cumG += len;
+    return html;
+  }).join('');
+  document.getElementById('ovGauge').innerHTML =
+    '<div class="gauge-box"><svg viewBox="0 0 140 140" width="140" height="140">'+gCircles+'</svg>'+
+    '<div class="gauge-center"><div class="gc-num" style="color:'+avgStatus.color+'">'+Math.round(agg.avgPct)+'%</div><div class="gc-lbl">متوسط الإنجاز</div></div></div>'+
+    '<div class="gauge-legend">'+segs.map(function(s){
+      return '<span class="gl-item"><span class="gl-dot" style="background:'+STATUS[s.key].color+'"></span>'+STATUS[s.key].label+' ('+s.count+')</span>';
+    }).join('')+'</div>';
+
+  var worst = agg.rows.slice().sort(function(a,b){ return a.pctRaw - b.pctRaw; })[0];
+  document.getElementById('ovPriority').innerHTML =
+    '<div class="pr-lbl">أولوية اليوم</div>'+
+    '<div class="pr-title">'+worst.title+'</div>'+
+    '<div class="pr-meta">عند '+Math.round(worst.pctRaw)+'% من هدف الشهر</div>'+
+    '<button onclick="switchTab(\'perf\')">عرض التفاصيل</button>';
+}
+
+function refreshAll(){ refreshPerfVisuals(); renderOverview(); }
+
+/* ============ التشغيل الأولي ============ */
+ROLES.forEach(function(r){ updateBar(r.id); });
+renderTasks();
+refreshAll();
 </script>
 </body>
 </html>
