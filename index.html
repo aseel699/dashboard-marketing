@@ -150,6 +150,39 @@ header p{font-size:13.5px;color:var(--charcoal);line-height:1.7;}
 .bar-fill{height:100%;background:var(--red);border-radius:5px;}
 .note-small{font-size:11px;color:#999;margin-top:16px;line-height:1.7;}
 .offline-note{background:#FFF7E6;border:1px solid #F0D9A0;border-radius:10px;padding:10px 12px;font-size:12px;color:#8a6d1f;margin-bottom:12px;}
+
+/* ---- tab 3: overview tiles + charts ---- */
+.perf-overview{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:18px;}
+.ov-card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px;text-align:center;}
+.ov-card .ov-num{font-size:26px;font-weight:900;color:var(--dark);line-height:1.2;}
+.ov-card .ov-lbl{font-size:11.5px;color:var(--charcoal);margin-top:4px;}
+.ov-card.st-good .ov-num{color:#2EA043;}
+.ov-card.st-warn .ov-num{color:#D97706;}
+.ov-card.st-bad .ov-num{color:#E7302B;}
+
+.chart-card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px;margin-bottom:18px;}
+.chart-card h3{font-size:14px;font-weight:800;color:var(--dark);margin-bottom:3px;}
+.chart-card .chart-sub{font-size:11.5px;color:var(--charcoal);margin-bottom:14px;}
+
+.rank-row{display:flex;align-items:center;gap:10px;margin-bottom:9px;}
+.rank-row:last-child{margin-bottom:0;}
+.rank-row .rk-name{width:150px;flex:none;font-size:12px;color:var(--dark);font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.rank-row .rk-track{flex:1;height:10px;background:var(--cream);border-radius:6px;overflow:hidden;}
+.rank-row .rk-fill{height:100%;border-radius:6px;transition:width .3s ease;}
+.rank-row .rk-pct{width:46px;flex:none;text-align:left;font-size:12px;font-weight:800;}
+
+.donut-wrap{display:flex;align-items:center;gap:28px;flex-wrap:wrap;}
+.donut-svg-box{position:relative;flex:none;width:120px;height:120px;}
+.donut-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+.donut-center .dc-num{font-size:22px;font-weight:900;color:var(--dark);}
+.donut-center .dc-lbl{font-size:10px;color:var(--charcoal);}
+.donut-legend{display:flex;flex-direction:column;gap:9px;font-size:12.5px;flex:1;min-width:160px;}
+.donut-legend .lg-row{display:flex;align-items:center;gap:8px;}
+.donut-legend .lg-dot{width:10px;height:10px;border-radius:3px;flex:none;}
+.donut-legend .lg-txt{color:var(--dark);}
+.donut-legend .lg-num{font-weight:800;}
+.kpi-pct-badge{font-size:12px;font-weight:800;margin-right:auto;}
+.kpi-pct-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;}
 @media (max-width:720px){.board{grid-template-columns:1fr;}}
 </style>
 </head>
@@ -208,7 +241,22 @@ header p{font-size:13.5px;color:var(--charcoal);line-height:1.7;}
     <div class="sec-title">مؤشرات حية من متجر Zid</div>
     <div class="offline-note">النسخة المنشورة هنا لا تتصل مباشرة بمتجر Zid (هذا متاح فقط داخل لوحة Cowork على جهازك). للمؤشرات الحية افتح لوحة Cowork.</div>
 
-    <div class="sec-title" style="margin-top:10px;">مؤشرات الأداء اليدوية — لكل دور</div>
+    <div class="sec-title" style="margin-top:14px;">نظرة عامة على الأداء</div>
+    <div class="perf-overview" id="perfOverview"></div>
+
+    <div class="chart-card">
+      <h3>ترتيب الأدوار حسب نسبة الإنجاز</h3>
+      <div class="chart-sub">الفعلي مقابل الهدف لكل دور، من الأعلى إنجازًا إلى الأقل</div>
+      <div id="rankChart"></div>
+    </div>
+
+    <div class="chart-card">
+      <h3>توزيع الأدوار حسب الحالة</h3>
+      <div class="chart-sub">عدد الأدوار على المسار، بحاجة متابعة، أو متأخرة عن هدف الشهر</div>
+      <div class="donut-wrap" id="donutWrap"></div>
+    </div>
+
+    <div class="sec-title" style="margin-top:4px;">مؤشرات الأداء اليدوية — لكل دور</div>
     <div class="sec-sub">حدّث «الفعلي» من جانبك شهريًا لمتابعة أداء كل موظف مقابل هدفه.</div>
     <div class="kpi-grid" id="kpiGrid"></div>
     <div class="note-small">المؤشرات اليدوية تُحفظ في متصفحك فقط على هذا الجهاز/الرابط الذي تفتحه منه.</div>
@@ -494,25 +542,111 @@ ROLES.forEach(function(r){
     '<div class="k-label">'+r.kpiLabel+'</div>'+
     '<div class="kpi-row"><label>فعلي</label><input type="number" step="0.1" id="act-'+r.id+'" value="'+kpiState[r.id].actual+'"></div>'+
     '<div class="kpi-row"><label>هدف</label><input type="number" step="0.1" id="tgt-'+r.id+'" value="'+kpiState[r.id].target+'"></div>'+
+    '<div class="kpi-pct-row"><span></span><span class="kpi-pct-badge" id="pctb-'+r.id+'">0%</span></div>'+
     '<div class="bar-track"><div class="bar-fill" id="bar-'+r.id+'" style="width:0%"></div></div>';
   kpiGrid.appendChild(card);
 });
 saveKpis(kpiState);
 
+/* ============ حالة الأداء (ألوان ثابتة الدلالة: أخضر=على المسار، كهرماني=بحاجة متابعة، أحمر=متأخر) ============ */
+var STATUS = {
+  good: {color:'#2EA043', label:'على المسار', icon:'✅'},
+  warn: {color:'#D97706', label:'بحاجة متابعة', icon:'⚠️'},
+  bad:  {color:'#E7302B', label:'متأخر', icon:'🔴'}
+};
+function statusFor(pct){
+  if(pct>=90) return 'good';
+  if(pct>=50) return 'warn';
+  return 'bad';
+}
+
 function updateBar(id){
   var a = parseFloat(document.getElementById('act-'+id).value)||0;
   var t = parseFloat(document.getElementById('tgt-'+id).value)||1;
-  var pct = Math.max(0, Math.min(100, (a/t)*100));
-  document.getElementById('bar-'+id).style.width = pct+'%';
+  var pctRaw = (a/t)*100;
+  var pct = Math.max(0, Math.min(100, pctRaw));
+  var st = STATUS[statusFor(pctRaw)];
+  var fill = document.getElementById('bar-'+id);
+  fill.style.width = pct+'%';
+  fill.style.background = st.color;
+  var badge = document.getElementById('pctb-'+id);
+  badge.textContent = Math.round(pctRaw)+'%';
+  badge.style.color = st.color;
   var state = loadKpis();
   state[id] = {actual:a, target:t};
   saveKpis(state);
+  refreshPerfVisuals();
 }
 ROLES.forEach(function(r){
   document.getElementById('act-'+r.id).addEventListener('input', function(){ updateBar(r.id); });
   document.getElementById('tgt-'+r.id).addEventListener('input', function(){ updateBar(r.id); });
   updateBar(r.id);
 });
+
+/* ============ نظرة عامة + رسم الترتيب + الدونت ============ */
+function refreshPerfVisuals(){
+  var state = loadKpis();
+  var rows = ROLES.map(function(r){
+    var k = state[r.id] || {actual:0, target:r.kpiTarget};
+    var t = k.target || 1;
+    var pctRaw = (k.actual/t)*100;
+    return { id:r.id, title:r.title, pctRaw:pctRaw, status:statusFor(pctRaw) };
+  });
+
+  /* نظرة عامة */
+  var total = rows.length;
+  var avgPct = rows.reduce(function(s,r){ return s + Math.max(0, r.pctRaw); }, 0) / total;
+  var goodCount = rows.filter(function(r){ return r.status==='good'; }).length;
+  var warnCount = rows.filter(function(r){ return r.status==='warn'; }).length;
+  var badCount  = rows.filter(function(r){ return r.status==='bad'; }).length;
+  var avgStatus = STATUS[statusFor(avgPct)];
+  document.getElementById('perfOverview').innerHTML =
+    '<div class="ov-card"><div class="ov-num">'+total+'</div><div class="ov-lbl">عدد الأدوار</div></div>'+
+    '<div class="ov-card" style="border-color:'+avgStatus.color+'33"><div class="ov-num" style="color:'+avgStatus.color+'">'+Math.round(avgPct)+'%</div><div class="ov-lbl">متوسط الإنجاز</div></div>'+
+    '<div class="ov-card st-good"><div class="ov-num">'+goodCount+'</div><div class="ov-lbl">✅ على المسار</div></div>'+
+    '<div class="ov-card st-bad"><div class="ov-num">'+(warnCount+badCount)+'</div><div class="ov-lbl">⚠️ بحاجة متابعة</div></div>';
+
+  /* رسم الترتيب */
+  var sorted = rows.slice().sort(function(a,b){ return b.pctRaw - a.pctRaw; });
+  document.getElementById('rankChart').innerHTML = sorted.map(function(r){
+    var st = STATUS[r.status];
+    var w = Math.max(0, Math.min(100, r.pctRaw));
+    return '<div class="rank-row">'+
+      '<div class="rk-name">'+r.title+'</div>'+
+      '<div class="rk-track" title="'+r.title+': '+Math.round(r.pctRaw)+'%"><div class="rk-fill" style="width:'+w+'%;background:'+st.color+'"></div></div>'+
+      '<div class="rk-pct" style="color:'+st.color+'">'+Math.round(r.pctRaw)+'%</div>'+
+    '</div>';
+  }).join('');
+
+  /* دونت الحالة */
+  var segs = [
+    {key:'good', count:goodCount},
+    {key:'warn', count:warnCount},
+    {key:'bad',  count:badCount}
+  ];
+  var r40 = 42, circ = 2*Math.PI*r40, cum = 0;
+  var circles = segs.map(function(s){
+    var len = (s.count/total)*circ;
+    var html = '<circle cx="60" cy="60" r="'+r40+'" fill="none" stroke="'+STATUS[s.key].color+'" stroke-width="16" '+
+      'stroke-dasharray="'+len+' '+(circ-len)+'" stroke-dashoffset="'+(-cum)+'" transform="rotate(-90 60 60)">'+
+      '<title>'+STATUS[s.key].label+': '+s.count+' دور ('+Math.round(s.count/total*100)+'%)</title></circle>';
+    cum += len;
+    return html;
+  }).join('');
+  document.getElementById('donutWrap').innerHTML =
+    '<div class="donut-svg-box">'+
+      '<svg viewBox="0 0 120 120" width="120" height="120">'+circles+'</svg>'+
+      '<div class="donut-center"><div class="dc-num">'+total+'</div><div class="dc-lbl">دور</div></div>'+
+    '</div>'+
+    '<div class="donut-legend">'+
+      segs.map(function(s){
+        return '<div class="lg-row"><span class="lg-dot" style="background:'+STATUS[s.key].color+'"></span>'+
+          '<span class="lg-txt">'+STATUS[s.key].icon+' '+STATUS[s.key].label+'</span>'+
+          '<span class="lg-num">'+s.count+'</span></div>';
+      }).join('')+
+    '</div>';
+}
+refreshPerfVisuals();
 </script>
 </body>
 </html>
