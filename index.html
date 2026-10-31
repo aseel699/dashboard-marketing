@@ -1,551 +1,518 @@
 <!DOCTYPE html>
-<html>
+<html dir="rtl" lang="ar">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="./support.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>فريق Lines Ideas التسويقي الرقمي</title>
+<style>
+:root{
+  color-scheme: light;
+  --red:#E7302B;
+  --charcoal:#585757;
+  --dark:#201F1F;
+  --cream:#F7F4F1;
+  --bg:#FAF8F6;
+  --line:#E7E2DC;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{
+  font-family:Tahoma,'Segoe UI',Arial,sans-serif;
+  background:var(--bg);
+  color:var(--dark);
+  direction:rtl;
+  padding:22px 18px 50px;
+}
+.wrap{max-width:1040px;margin:0 auto;}
+header{margin-bottom:18px;}
+header h1{font-size:24px;color:var(--dark);margin-bottom:4px;}
+header p{font-size:13.5px;color:var(--charcoal);line-height:1.7;}
+.banner{
+  background:#fff;
+  border:1px solid var(--line);
+  border-right:5px solid var(--red);
+  border-radius:12px;
+  padding:14px 16px;
+  font-size:13.5px;
+  color:var(--charcoal);
+  line-height:1.8;
+  margin-bottom:20px;
+}
+.banner b{color:var(--dark);}
+.tabs{display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap;}
+.tab-btn{
+  font-family:inherit;
+  background:#fff;
+  border:1px solid var(--line);
+  color:var(--charcoal);
+  padding:10px 18px;
+  border-radius:10px;
+  font-size:14px;
+  font-weight:700;
+  cursor:pointer;
+}
+.tab-btn.active{background:var(--dark);color:#fff;border-color:var(--dark);}
+.panel{display:none;}
+.panel.active{display:block;}
+
+/* ---- tab 1: roles ---- */
+.legend{font-size:11.5px;color:var(--charcoal);margin-bottom:12px;display:flex;gap:16px;flex-wrap:wrap;}
+.legend span{display:inline-flex;align-items:center;gap:5px;}
+.legend .dot{width:7px;height:7px;border-radius:50%;}
+.legend .dot.g{background:#2ea043;}
+.legend .dot.b{background:#bbb;}
+.roles-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px;}
+.role-card{
+  background:#fff;border:1px solid var(--line);border-radius:14px;
+  padding:16px;display:flex;flex-direction:column;gap:10px;
+}
+.role-head{display:flex;align-items:center;gap:12px;}
+.role-head canvas{flex:none;background:var(--cream);border-radius:50%;}
+.role-head .names{flex:1;min-width:0;}
+.role-head .title{font-size:16px;font-weight:800;color:var(--dark);}
+.role-head .animal{font-size:12px;color:var(--charcoal);}
+.role-card .mission{font-size:13px;color:var(--charcoal);line-height:1.7;}
+.prompt-box{
+  background:var(--cream);border:1px solid var(--line);border-radius:10px;
+  padding:10px 12px;font-size:12.5px;color:var(--dark);line-height:1.6;
+}
+.prompt-box textarea{
+  width:100%;border:none;background:transparent;resize:none;font-family:inherit;
+  font-size:12.5px;color:var(--dark);line-height:1.6;direction:rtl;
+}
+.copy-btn{
+  margin-top:6px;background:var(--dark);color:#fff;border:none;border-radius:7px;
+  padding:5px 12px;font-size:11.5px;cursor:pointer;float:left;
+}
+.copy-btn.copied{background:var(--red);}
+.kpi-pill{
+  align-self:flex-start;background:rgba(88,87,87,.08);color:var(--charcoal);
+  border-radius:20px;padding:4px 12px;font-size:11.5px;font-weight:700;
+}
+.tool-badge{
+  align-self:flex-start;display:flex;align-items:center;gap:6px;
+  background:#fff;border:1px solid var(--line);border-radius:20px;padding:4px 12px 4px 7px;font-size:11px;color:var(--dark);
+}
+.tool-badge .dot{width:7px;height:7px;border-radius:50%;background:#bbb;flex:none;}
+.tool-badge.connected .dot{background:#2ea043;}
+.tool-badge b{font-weight:800;}
+.tool-badge .tnote{color:var(--charcoal);font-weight:400;}
+
+/* ---- tab 2: tasks ---- */
+.task-form{
+  background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px;
+  display:flex;flex-wrap:wrap;gap:10px;margin-bottom:18px;align-items:flex-end;
+}
+.task-form .field{display:flex;flex-direction:column;gap:4px;font-size:12px;color:var(--charcoal);}
+.task-form input,.task-form select{
+  font-family:inherit;padding:8px 10px;border:1px solid var(--line);border-radius:8px;font-size:13px;min-width:140px;
+}
+.task-form input[type="text"]{min-width:220px;}
+.task-form button{
+  background:var(--red);color:#fff;border:none;border-radius:8px;padding:9px 18px;
+  font-size:13px;font-weight:800;cursor:pointer;
+}
+.board{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+.col{background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px;min-height:160px;}
+.col h3{font-size:14px;margin-bottom:10px;color:var(--dark);display:flex;justify-content:space-between;}
+.col h3 span{color:var(--charcoal);font-weight:400;font-size:12px;}
+.task-card{
+  background:var(--cream);border:1px solid var(--line);border-radius:10px;padding:10px;margin-bottom:8px;font-size:12.5px;
+}
+.task-card .t-role{display:inline-block;background:var(--dark);color:#fff;border-radius:6px;padding:2px 8px;font-size:10.5px;margin-bottom:6px;}
+.task-card .t-title{font-weight:700;color:var(--dark);margin-bottom:4px;}
+.task-card .t-meta{color:var(--charcoal);font-size:11px;margin-bottom:6px;}
+.task-card .t-actions{display:flex;gap:6px;}
+.task-card .t-actions button{
+  border:none;border-radius:6px;background:#fff;border:1px solid var(--line);
+  font-size:11px;padding:3px 8px;cursor:pointer;color:var(--dark);
+}
+.task-card .t-actions button.danger{color:var(--red);}
+.empty-col{font-size:12px;color:#aaa;text-align:center;padding:20px 0;}
+
+/* ---- tab 3: performance ---- */
+.sec-title{font-size:15px;font-weight:800;margin:4px 0 12px;color:var(--dark);}
+.sec-sub{font-size:12px;color:var(--charcoal);margin-bottom:12px;}
+.live-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:10px;}
+.live-card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px;text-align:center;}
+.live-card .num{font-size:24px;font-weight:900;color:var(--red);}
+.live-card .lbl{font-size:12px;color:var(--charcoal);margin-top:4px;}
+.refresh-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
+.refresh-row button{background:var(--dark);color:#fff;border:none;border-radius:8px;padding:7px 14px;font-size:12px;cursor:pointer;}
+.updated{font-size:11px;color:#999;}
+.kpi-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px;margin-top:8px;}
+.kpi-card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px;}
+.kpi-card .k-title{font-size:13px;font-weight:700;color:var(--dark);margin-bottom:2px;}
+.kpi-card .k-label{font-size:11.5px;color:var(--charcoal);margin-bottom:8px;}
+.kpi-row{display:flex;align-items:center;gap:6px;margin-bottom:8px;}
+.kpi-row label{font-size:11px;color:var(--charcoal);width:36px;}
+.kpi-row input{width:70px;padding:5px 6px;border:1px solid var(--line);border-radius:6px;font-size:12px;}
+.bar-track{height:7px;border-radius:5px;background:var(--line);overflow:hidden;}
+.bar-fill{height:100%;background:var(--red);border-radius:5px;}
+.note-small{font-size:11px;color:#999;margin-top:16px;line-height:1.7;}
+.offline-note{background:#FFF7E6;border:1px solid #F0D9A0;border-radius:10px;padding:10px 12px;font-size:12px;color:#8a6d1f;margin-bottom:12px;}
+@media (max-width:720px){.board{grid-template-columns:1fr;}}
+</style>
 </head>
 <body>
-<x-dc>
-<helmet>
-  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
-  <style>
-*{margin:0;padding:0;box-sizing:border-box}
-:root{
-  --maroon:#7A1F2B;--maroon-dark:#4A1420;--maroon-dim:rgba(122,31,43,.07);--maroon-border:rgba(122,31,43,.22);
-  --gold:#B8860B;--gold-dim:rgba(184,134,11,.08);--gold-border:rgba(184,134,11,.2);
-  --red:#DC2626;--red-dim:rgba(220,38,38,.08);
-  --green:#16A34A;--green-dim:rgba(22,163,74,.08);
-  --orange:#EA580C;--orange-dim:rgba(234,88,12,.08);
-  --blue:#2563EB;--blue-dim:rgba(37,99,235,.08);
-  --purple:#7C3AED;--teal:#0D9488;
-  --bg:#F8FAFC;--bg2:#FFFFFF;
-  --border:rgba(0,0,0,.08);--border2:rgba(0,0,0,.05);
-  --text:#1E293B;--text-dim:#475569;--text-faint:#94A3B8;
-}
-body{font-family:'Tajawal',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding:20px}
-.container{max-width:2200px;margin:0 auto}
+<div class="wrap">
+  <header>
+    <h1>فريق Lines Ideas التسويقي الرقمي</h1>
+    <p>متجر خطوط الأفكار (linesideas.com) — 11 دورًا تسويقيًا جاهزًا للتشغيل، مع تتبع مهام ومؤشرات أداء.</p>
+  </header>
 
-.loading-screen{position:fixed;inset:0;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:999;gap:16px}
-.loading-logo{font-size:40px}
-.loading-text{font-size:16px;font-weight:700;color:var(--maroon)}
-.loading-sub{font-size:12px;color:var(--text-faint)}
-.loading-bar-wrap{width:200px;height:3px;background:rgba(0,0,0,.07);border-radius:3px;overflow:hidden}
-.loading-bar-fill{height:100%;background:linear-gradient(90deg,var(--maroon),var(--gold));border-radius:3px;animation:loadprog 2s ease-in-out infinite}
-@keyframes loadprog{0%{width:0%}100%{width:100%}}
-.error-box{background:var(--red-dim);border:1px solid rgba(200,16,46,.3);border-radius:12px;padding:16px 20px;text-align:center;margin:20px auto;max-width:460px}
-.error-box h3{color:#DC2626;margin-bottom:8px}
-.error-box p{font-size:12px;color:var(--text-dim)}
-.retry-btn{margin-top:12px;background:var(--maroon);border:1px solid var(--maroon);color:#fff;font-size:12px;font-weight:700;padding:8px 16px;border-radius:10px;cursor:pointer;font-family:'Tajawal',sans-serif}
+  <div class="banner">
+    <b>طريقة التشغيل:</b> هذه اللوحة ليست بوتًا يعمل تلقائيًا — هي مرجعك ولوحة تتبعك. لتشغيل أي موظف فعليًا: روح لتبويب
+    <b>«الأدوار والبرومبتات»</b>، انسخ أحد برومبتات الدور، عدّل ما بين القوسين [ ]، وأرسله في الشات مع Claude داخل مشروع Lines Ideas.
+    استخدم <b>«لوحة المهام»</b> لتسجيل وتتبع كل طلب، و<b>«لوحة الأداء»</b> للمؤشرات اليدوية لكل دور.
+  </div>
 
-/* ── Temporary maintenance overlay ─────────────────────── */
-.maint-blur{filter:blur(16px);pointer-events:none;user-select:none}
-.maint-overlay{position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;background:rgba(248,250,252,.65);padding:20px}
-.maint-card{background:#fff;border:1px solid var(--border);border-radius:18px;padding:32px 40px;text-align:center;box-shadow:0 8px 30px rgba(74,20,32,.2);max-width:360px}
-.maint-card .ic{font-size:38px;margin-bottom:10px}
-.maint-card h2{color:var(--maroon-dark);font-size:21px;font-weight:900;margin-bottom:6px}
-.maint-card p{color:var(--text-faint);font-size:13px}
+  <div class="tabs">
+    <button class="tab-btn active" data-tab="roles">الأدوار والبرومبتات</button>
+    <button class="tab-btn" data-tab="tasks">لوحة المهام</button>
+    <button class="tab-btn" data-tab="perf">لوحة الأداء</button>
+  </div>
 
-/* ── Header (maroon bar, matches brand) ───────────────── */
-.top-header{background:linear-gradient(135deg,var(--maroon),var(--maroon-dark));border-radius:18px;padding:16px 22px;display:grid;grid-template-columns:auto 1fr auto;grid-template-areas:"meta title logo";align-items:center;margin-bottom:18px;column-gap:16px;box-shadow:0 4px 16px rgba(74,20,32,.28)}
-.th-left{grid-area:meta;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-.th-date{display:flex;align-items:center;gap:6px;color:#fff;font-size:15px;font-weight:700}
-.th-live{width:7px;height:7px;border-radius:50%;background:#4ADE80;animation:pulse 2s infinite;display:inline-block;box-shadow:0 0 0 3px rgba(74,222,128,.2)}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
-.th-right{display:contents}
-.th-title{grid-area:title;color:#fff;font-size:25px;font-weight:900;line-height:1.25;text-align:center}
-.brand-wordmark{grid-area:logo;display:flex;align-items:center;flex-shrink:0;background:#fff;border-radius:14px;padding:8px 16px}
-.brand-wordmark img{height:30px;width:auto;object-fit:contain;display:block}
-.th-break{display:none}
-@media(max-width:700px){
-  .th-break{display:inline}
-  .top-header{display:grid;grid-template-columns:1fr auto;grid-template-areas:"meta logo" "title logo";align-items:center;row-gap:6px;column-gap:14px}
-  .th-right{display:contents}
-  .th-left{grid-area:meta;flex-direction:column;align-items:flex-start;justify-content:flex-end}
-  .th-title{grid-area:title;text-align:right;font-size:17px}
-  .brand-wordmark{grid-area:logo;padding:10px 18px}
-  .brand-wordmark img{height:40px}
-}
-
-/* ── Indicator grid (top3 / bottom3 per metric) ───────── */
-.ind-wrap{display:grid;grid-template-columns:1fr 1fr;gap:0;background:var(--bg2);border:1px solid var(--border);border-radius:16px;overflow:hidden;margin-bottom:18px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
-@media(max-width:900px){.ind-wrap{grid-template-columns:1fr}}
-.ind-col{padding:14px 16px}
-.ind-col.right{border-right:2px solid var(--maroon-border)}
-@media(max-width:900px){.ind-col.right{border-right:none;border-top:2px solid var(--maroon-border)}}
-.ind-title{font-size:20px;font-weight:900;color:var(--maroon-dark);margin-bottom:14px;text-align:center;letter-spacing:.3px}
-.ind-metrics{display:grid;gap:16px}
-.ind-metrics>div:not(:first-child){border-right:1px solid var(--border);padding-right:16px}
-.ind-metrics.n3{grid-template-columns:repeat(3,1fr)}
-.ind-metrics.n2{grid-template-columns:repeat(2,1fr)}
-@media(max-width:620px){.ind-metrics.n3,.ind-metrics.n2{grid-template-columns:1fr}.ind-metrics>div:not(:first-child){border-right:none;padding-right:0;border-top:1px solid var(--border);padding-top:12px}}
-.ind-metric-lbl{font-size:15px;font-weight:800;color:var(--text-dim);text-align:center;margin-bottom:8px;min-height:28px;display:flex;align-items:center;justify-content:center}
-.ind-card{border-radius:10px;padding:9px 12px;margin-bottom:7px}
-.ind-card:last-child{margin-bottom:0}
-.ind-card.top{background:var(--green-dim);border:1px solid rgba(34,197,94,.18)}
-.ind-card.bot{background:var(--red-dim);border:1px solid rgba(220,38,38,.16)}
-.ind-row{display:flex;justify-content:space-between;align-items:center;gap:6px;padding:5px 0;font-size:16px}
-.ind-row .n{color:var(--text-dim);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.ind-row .v{font-weight:900;flex-shrink:0}
-.ind-row.top .v{color:var(--green)}
-.ind-row.bot .v{color:#DC2626}
-
-/* ── Money table (sales + collections) ────────────────── */
-.money-box{background:var(--bg2);border:1px solid var(--border);border-radius:16px;overflow:hidden;margin-bottom:18px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
-.money-box-header{padding:12px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
-.money-box-title{font-size:15.5px;font-weight:900;color:var(--maroon-dark);text-align:right}
-.money-box-sub{font-size:11px;color:var(--text-faint);margin-top:2px;text-align:right}
-@media(max-width:700px){.money-box-header{justify-content:flex-start}}
-.mtw{overflow-x:auto}
-.mt{width:100%;border-collapse:separate;border-spacing:0;font-size:15px;min-width:1150px}
-.mt thead tr.grp th{background:var(--maroon-dark);color:#fff;padding:11px 12px;font-size:13.5px;font-weight:800;text-align:center;border-left:2px solid rgba(255,255,255,.3)}
-.mt thead tr.sub th{background:var(--maroon-dim);color:var(--maroon-dark);padding:11px 12px;font-size:13px;font-weight:800;text-align:center;white-space:nowrap;border-bottom:1px solid var(--maroon-border)}
-.mt thead tr.sub th.sortable{cursor:pointer;user-select:none}
-.mt thead tr.sub th.sortable:hover{background:rgba(122,31,43,.14)}
-.mt thead tr.sub th .sort-ind{display:inline-block;margin-right:4px;font-size:10px;opacity:.55}
-.mt thead tr.sub th:nth-child(3), .mt thead tr.sub th:nth-child(6), .mt thead tr.sub th:nth-child(9), .mt thead tr.sub th:nth-child(12){border-left:2px solid var(--maroon-border)}
-.mt tbody td:nth-child(3), .mt tbody td:nth-child(6), .mt tbody td:nth-child(9), .mt tbody td:nth-child(12){border-left:2px solid var(--maroon-border)}
-.mt tfoot td:nth-child(2), .mt tfoot td:nth-child(5), .mt tfoot td:nth-child(8), .mt tfoot td:nth-child(11){border-left:2px solid var(--maroon-border)}
-.mt tbody tr:hover{background:rgba(122,31,43,.03)}
-.mt tbody td{padding:10px 10px;color:var(--text-dim);text-align:center;white-space:nowrap;border-bottom:1px solid var(--border2)}
-.mt td.nm{color:var(--text);font-weight:700;font-size:16px;text-align:right}
-.mt td.rg{color:var(--text-faint);font-size:13px}
-.mt td.rk{font-weight:800;color:var(--text-dim)}
-.mt td.ach{color:var(--maroon);font-weight:800}
-.mt tfoot tr{background:var(--maroon-dim);font-weight:900}
-.mt tfoot td{padding:12px 10px;text-align:center;color:var(--maroon-dark);border-bottom:none;border-top:1px solid var(--border2)}
-.mt tfoot td.nm{text-align:right}
-@media(max-width:700px){
-  .mt td.nm, .mt thead tr.sub th:nth-child(2){position:sticky;right:0;z-index:3}
-  .mt td.nm{background:#fff;background-clip:padding-box;border-left:1px solid var(--border2)}
-  .mt tfoot td.nm{position:sticky;right:0;z-index:3;background:#F6EFF0;background-clip:padding-box;border-left:1px solid var(--maroon-border)}
-  .mt thead tr.sub th:nth-child(2){background:#F6EFF0;background-clip:padding-box;border-left:1px solid var(--maroon-border)}
-}
-.mbar{display:flex;align-items:center;gap:5px;min-width:70px;margin:0 auto}
-.mbar .bb{flex:1;height:5px;background:rgba(0,0,0,.06);border-radius:3px;overflow:hidden}
-.mbar .bf{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--maroon),#A5384A)}
-.mbar .bl{font-size:11px;font-weight:800;min-width:34px}
-
-.footer{text-align:center;padding:11px;font-size:10.5px;color:var(--text-faint);border-top:1px solid var(--border);background:#fff}
-.footer strong{color:var(--maroon)}
-  </style>
-</helmet>
-
-<div style="direction: rtl;">
-
-  <sc-if value="{{ showLoading }}" hint-placeholder-val="{{ true }}">
-    <div class="loading-screen">
-      <div class="loading-logo">📊</div>
-      <sc-if value="{{ hasError }}" hint-placeholder-val="{{ false }}">
-        <div class="error-box">
-          <h3>⚠️ تعذّر تحميل البيانات</h3>
-          <p>{{ loadError }}</p>
-          <button class="retry-btn" onClick="{{ retry }}">🔄 إعادة المحاولة</button>
-        </div>
-      </sc-if>
-      <sc-if value="{{ isLoadingNoError }}" hint-placeholder-val="{{ true }}">
-        <div class="loading-text">جاري تحميل البيانات...</div>
-        <div class="loading-sub">يتم القراءة مباشرة من نظام Lines Center</div>
-        <div class="loading-bar-wrap"><div class="loading-bar-fill"></div></div>
-      </sc-if>
+  <!-- TAB 1 -->
+  <div class="panel active" id="panel-roles">
+    <div class="legend">
+      <span><span class="dot g"></span> الأداة متصلة الآن فعليًا (داخل Cowork)</span>
+      <span><span class="dot b"></span> أداة مقترحة لرفع كفاءة هذا الدور</span>
     </div>
-  </sc-if>
+    <div class="roles-grid" id="rolesGrid"></div>
+  </div>
 
-  <sc-if value="{{ showContent }}" hint-placeholder-val="{{ false }}">
-    <div class="maint-overlay">
-      <div class="maint-card">
-        <div class="ic">🚧</div>
-        <h2>جاري العمل على التحديثات</h2>
-        <p>سنعود قريبًا بتحديثات جديدة</p>
+  <!-- TAB 2 -->
+  <div class="panel" id="panel-tasks">
+    <div class="task-form">
+      <div class="field"><label>عنوان المهمة</label><input type="text" id="taskTitle" placeholder="مثال: وصف منتج لآلة قهوة X"></div>
+      <div class="field"><label>الموظف المسؤول</label><select id="taskRole"></select></div>
+      <div class="field"><label>الأولوية</label>
+        <select id="taskPriority">
+          <option value="عالية">عالية</option>
+          <option value="متوسطة" selected>متوسطة</option>
+          <option value="منخفضة">منخفضة</option>
+        </select>
       </div>
+      <div class="field"><label>تاريخ التسليم</label><input type="date" id="taskDate"></div>
+      <button onclick="addTask()">إضافة مهمة</button>
     </div>
-    <div class="container maint-blur">
-
-      <div class="top-header">
-        <div class="th-left">
-          <div class="th-date"><span class="th-live"></span> {{ hDate }}</div>
-        </div>
-        <div class="th-right">
-          <div class="th-title">لوحة متابعة <br class="th-break">قسم المبيعات</div>
-          <div class="brand-wordmark"><img src="./lines-logo.png" alt="خطوط الأفكار - Lines Ideas"></div>
-        </div>
-      </div>
-
-      <div class="ind-wrap">
-        <div class="ind-col">
-          <div class="ind-title">مؤشرات المبيعات</div>
-          <div class="ind-metrics n3">
-            <div>
-              <div class="ind-metric-lbl">نسبة تحقيق مبيعات</div>
-              <div class="ind-card top">
-                <sc-for list="{{ indTopAchv }}" as="c" hint-placeholder-count="3">
-                  <div class="ind-row top"><span class="n">{{ c.name }}</span><span class="v">{{ c.valText }}</span></div>
-                </sc-for>
-              </div>
-              <div class="ind-card bot">
-                <sc-for list="{{ indBotAchv }}" as="c" hint-placeholder-count="3">
-                  <div class="ind-row bot"><span class="n">{{ c.name }}</span><span class="v">{{ c.valText }}</span></div>
-                </sc-for>
-              </div>
-            </div>
-            <div>
-              <div class="ind-metric-lbl">نسبة تحقيق من المستهدف</div>
-              <div class="ind-card top">
-                <sc-for list="{{ indTopAchvTarget }}" as="c" hint-placeholder-count="3">
-                  <div class="ind-row top"><span class="n">{{ c.name }}</span><span class="v">{{ c.valText }}</span></div>
-                </sc-for>
-              </div>
-              <div class="ind-card bot">
-                <sc-for list="{{ indBotAchvTarget }}" as="c" hint-placeholder-count="3">
-                  <div class="ind-row bot"><span class="n">{{ c.name }}</span><span class="v">{{ c.valText }}</span></div>
-                </sc-for>
-              </div>
-            </div>
-            <div>
-              <div class="ind-metric-lbl">نسبة مبيعات نقدية</div>
-              <div class="ind-card top">
-                <sc-for list="{{ indTopCash }}" as="c" hint-placeholder-count="3">
-                  <div class="ind-row top"><span class="n">{{ c.name }}</span><span class="v">{{ c.valText }}</span></div>
-                </sc-for>
-              </div>
-              <div class="ind-card bot">
-                <sc-for list="{{ indBotCash }}" as="c" hint-placeholder-count="3">
-                  <div class="ind-row bot"><span class="n">{{ c.name }}</span><span class="v">{{ c.valText }}</span></div>
-                </sc-for>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="ind-col right">
-          <div class="ind-title">مؤشرات التحصيل والمتعلقات</div>
-          <div class="ind-metrics n3">
-            <div>
-              <div class="ind-metric-lbl">نسبة تحصيل شهري</div>
-              <div class="ind-card top">
-                <sc-for list="{{ indTopMonthlyCollect }}" as="c" hint-placeholder-count="3">
-                  <div class="ind-row top"><span class="n">{{ c.name }}</span><span class="v">{{ c.valText }}</span></div>
-                </sc-for>
-              </div>
-              <div class="ind-card bot">
-                <sc-for list="{{ indBotMonthlyCollect }}" as="c" hint-placeholder-count="3">
-                  <div class="ind-row bot"><span class="n">{{ c.name }}</span><span class="v">{{ c.valText }}</span></div>
-                </sc-for>
-              </div>
-            </div>
-            <div>
-              <div class="ind-metric-lbl">نسبة تحصيل مبيعات سابقة</div>
-              <div class="ind-card top">
-                <sc-for list="{{ indTopPastCollect }}" as="c" hint-placeholder-count="3">
-                  <div class="ind-row top"><span class="n">{{ c.name }}</span><span class="v">{{ c.valText }}</span></div>
-                </sc-for>
-              </div>
-              <div class="ind-card bot">
-                <sc-for list="{{ indBotPastCollect }}" as="c" hint-placeholder-count="3">
-                  <div class="ind-row bot"><span class="n">{{ c.name }}</span><span class="v">{{ c.valText }}</span></div>
-                </sc-for>
-              </div>
-            </div>
-            <div>
-              <div class="ind-metric-lbl">نسبة متعلقات</div>
-              <div class="ind-card top">
-                <sc-for list="{{ indTopOutstanding }}" as="c" hint-placeholder-count="3">
-                  <div class="ind-row top"><span class="n">{{ c.name }}</span><span class="v">{{ c.valText }}</span></div>
-                </sc-for>
-              </div>
-              <div class="ind-card bot">
-                <sc-for list="{{ indBotOutstanding }}" as="c" hint-placeholder-count="3">
-                  <div class="ind-row bot"><span class="n">{{ c.name }}</span><span class="v">{{ c.valText }}</span></div>
-                </sc-for>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div id="screenBreakSpacer"></div>
-
-      <div class="money-box">
-        <div class="money-box-header">
-          <div>
-            <div class="money-box-title">💰 المبيعات والتحصيل والمتعلقات</div>
-            <div class="money-box-sub">مرتب تلقائيًا حسب مبلغ البيع المحقق من الأعلى إلى الأقل</div>
-          </div>
-        </div>
-        <div class="mtw">
-          <table class="mt">
-            <thead>
-              <tr class="grp">
-                <th colspan="3">بيانات الموظفين</th>
-                <th colspan="3">مؤشرات المبيعات الشهرية</th>
-                <th colspan="3">مؤشرات المبيعات الآجلة الشهرية</th>
-                <th colspan="3">مؤشرات المتعلقات السابقة</th>
-                <th colspan="2">إجمالي المتعلقات</th>
-              </tr>
-              <tr class="sub">
-                <th class="sortable" onClick="{{ sortByRank }}">#<span class="sort-ind">{{ arrowRank }}</span></th>
-                <th class="sortable" onClick="{{ sortByName }}">اسم الموظف<span class="sort-ind">{{ arrowName }}</span></th>
-                <th class="sortable" onClick="{{ sortByRegion }}">الموقع<span class="sort-ind">{{ arrowRegion }}</span></th>
-                <th class="sortable" onClick="{{ sortByTarget }}">المستهدف<span class="sort-ind">{{ arrowTarget }}</span></th>
-                <th class="sortable" onClick="{{ sortByAchieved }}">المحقق<span class="sort-ind">{{ arrowAchieved }}</span></th>
-                <th class="sortable" onClick="{{ sortBySp }}">نسبة المحقق<span class="sort-ind">{{ arrowSp }}</span></th>
-                <th class="sortable" onClick="{{ sortByInstTarget }}">المبيعات الآجلة<span class="sort-ind">{{ arrowInstTarget }}</span></th>
-                <th class="sortable" onClick="{{ sortByInstCollected }}">التحصيل<span class="sort-ind">{{ arrowInstCollected }}</span></th>
-                <th class="sortable" onClick="{{ sortByInstRemainingPct }}">نسبة المتبقي<span class="sort-ind">{{ arrowInstRemainingPct }}</span></th>
-                <th class="sortable" onClick="{{ sortByPastOutstanding }}">المتعلقات<span class="sort-ind">{{ arrowPastOutstanding }}</span></th>
-                <th class="sortable" onClick="{{ sortByPastCollected }}">التحصيل<span class="sort-ind">{{ arrowPastCollected }}</span></th>
-                <th class="sortable" onClick="{{ sortByPastRemainingPct }}">نسبة المتبقي<span class="sort-ind">{{ arrowPastRemainingPct }}</span></th>
-                <th class="sortable" onClick="{{ sortByTotalOutstanding }}">الإجمالي<span class="sort-ind">{{ arrowTotalOutstanding }}</span></th>
-                <th class="sortable" onClick="{{ sortByTotalPct }}">النسبة<span class="sort-ind">{{ arrowTotalPct }}</span></th>
-              </tr>
-            </thead>
-            <tbody>
-              <sc-for list="{{ moneyRows }}" as="e" hint-placeholder-count="10">
-                <tr>
-                  <td class="rk">
-                    {{ e.rank }}
-                    <sc-if value="{{ e.hasRankFlag }}" hint-placeholder-val="{{ false }}">
-                      <svg width="13" height="13" viewBox="0 0 24 24" style="display:inline-block;vertical-align:-2px;margin-inline-start:3px">
-                        <line x1="5" y1="2" x2="5" y2="22" stroke="#6b7280" stroke-width="2.5" stroke-linecap="round"></line>
-                        <path d="M5 4 L20 4 L14.5 8.5 L20 13 L5 13 Z" fill="{{ e.rankFlagColor }}"></path>
-                      </svg>
-                    </sc-if>
-                  </td>
-                  <td class="nm">{{ e.name }}</td>
-                  <td class="rg">{{ e.region }}</td>
-                  <td>{{ e.target }}</td>
-                  <td class="ach">{{ e.achieved }}</td>
-                  <td><div class="mbar"><div class="bb"><div class="bf" style="width:{{ e.achievedBarPct }}%"></div></div><div class="bl">{{ e.achievedPct }}</div></div></td>
-                  <td>{{ e.instTarget }}</td><td>{{ e.instCollected }}</td><td>{{ e.instRemainingPct }}</td>
-                  <td>{{ e.pastOutstanding }}</td><td>{{ e.pastCollected }}</td><td>{{ e.pastRemainingPct }}</td>
-                  <td class="ach">{{ e.totalOutstanding }}</td><td>{{ e.totalPct }}</td>
-                </tr>
-              </sc-for>
-            </tbody>
-            <tfoot>
-              <tr>
-                <td colspan="2" class="nm">إجمالي الفريق</td>
-                <td></td>
-                <td>{{ moneyTotals.target }}</td>
-                <td>{{ moneyTotals.achieved }}</td>
-                <td>{{ moneyTotals.pct }}</td>
-                <td>{{ moneyTotals.instTarget }}</td><td>{{ moneyTotals.instCollected }}</td><td>{{ moneyTotals.instRemainingPct }}</td>
-                <td>{{ moneyTotals.pastOutstanding }}</td><td>{{ moneyTotals.pastCollected }}</td><td>{{ moneyTotals.pastRemainingPct }}</td>
-                <td>{{ moneyTotals.totalOutstanding }}</td><td>{{ moneyTotals.totalPct }}</td>
-              </tr>
-            </tfoot>
-          </table>
-        </div>
-      </div>
-
-      <div class="footer">
-        آخر تحديث: <strong>{{ hDate }}</strong>
-      </div>
+    <div class="board">
+      <div class="col"><h3>جديد <span id="cnt-new">0</span></h3><div id="col-new"></div></div>
+      <div class="col"><h3>قيد التنفيذ <span id="cnt-doing">0</span></h3><div id="col-doing"></div></div>
+      <div class="col"><h3>مكتمل <span id="cnt-done">0</span></h3><div id="col-done"></div></div>
     </div>
-  </sc-if>
+  </div>
 
+  <!-- TAB 3 -->
+  <div class="panel" id="panel-perf">
+    <div class="sec-title">مؤشرات حية من متجر Zid</div>
+    <div class="offline-note">النسخة المنشورة هنا لا تتصل مباشرة بمتجر Zid (هذا متاح فقط داخل لوحة Cowork على جهازك). للمؤشرات الحية افتح لوحة Cowork.</div>
+
+    <div class="sec-title" style="margin-top:10px;">مؤشرات الأداء اليدوية — لكل دور</div>
+    <div class="sec-sub">حدّث «الفعلي» من جانبك شهريًا لمتابعة أداء كل موظف مقابل هدفه.</div>
+    <div class="kpi-grid" id="kpiGrid"></div>
+    <div class="note-small">المؤشرات اليدوية تُحفظ في متصفحك فقط على هذا الجهاز/الرابط الذي تفتحه منه.</div>
+  </div>
 </div>
 
-<script type="text/x-dc" data-dc-script>
-const API_BASE = 'https://company-linesideas.com/api';
-const HIDDEN_EMPLOYEE_IDS = [21, 23, 24];
-
-const fmt = v => Math.round(v).toLocaleString('en-US');
-const pct = v => (v * 100).toFixed(1) + '%';
-const bar = (v, mx) => Math.min(100, (mx > 0 ? v / mx : 0) * 100).toFixed(1);
-
-function buildRows(team) {
-  const rows = team.map(e => {
-    const instRemaining = Math.max(0, e.instTarget - e.instCollected);
-    const pastRemaining = Math.max(0, e.pastOutstanding - e.pastCollected);
-    const totalOutstanding = instRemaining + pastRemaining;
-    const sp = e.target > 0 ? e.achieved / e.target : null;
-    const instCollectPct = e.instTarget > 0 ? e.instCollected / e.instTarget : null;
-    const pastCollectPct = e.pastOutstanding > 0 ? e.pastCollected / e.pastOutstanding : null;
-    const cashAmount = Math.max(0, e.achieved - e.instTarget);
-    const cashPct = e.achieved > 0 ? cashAmount / e.achieved : null;
-    const instRemainingPct = e.instTarget > 0 ? instRemaining / e.instTarget : null;
-    const pastRemainingPct = e.pastOutstanding > 0 ? pastRemaining / e.pastOutstanding : null;
-    return { ...e, instRemaining, pastRemaining, totalOutstanding, sp, instCollectPct, pastCollectPct, cashPct, instRemainingPct, pastRemainingPct };
-  });
-  const grandOutstanding = rows.reduce((s, e) => s + e.totalOutstanding, 0);
-  rows.forEach(e => { e.totalPct = grandOutstanding > 0 ? e.totalOutstanding / grandOutstanding : 0; });
-  rows.sort((a, b) => b.achieved - a.achieved);
-  rows.forEach((e, i) => { e.rank = i + 1; });
-  return rows;
-}
-
-function indicatorList(rows, key, dir) {
-  const withVal = rows.filter(e => e[key] !== null);
-  const sorted = [...withVal].sort((a, b) => dir === 'top' ? a[key] - b[key] : b[key] - a[key]);
-  return sorted.slice(0, 3).map(e => ({ name: e.name, valText: pct(e[key]) }));
-}
-
-function indicatorListBy(rows, sortKey, displayKey, dir) {
-  const withVal = rows.filter(e => e[sortKey] !== null && e[displayKey] !== null);
-  const sorted = [...withVal].sort((a, b) => dir === 'top' ? a[sortKey] - b[sortKey] : b[sortKey] - a[sortKey]);
-  return sorted.slice(0, 3).map(e => ({ name: e.name, valText: pct(e[displayKey]) }));
-}
-
-class Component extends DCLogic {
-  state = { loading: true, error: '', team: [], sortKey: null, sortDir: 'desc' };
-
-  componentDidMount() {
-    this.loadAll();
-  }
-
-  sortBy = (key) => {
-    const { sortKey, sortDir } = this.state;
-    const nextDir = sortKey === key ? (sortDir === 'desc' ? 'asc' : 'desc') : 'desc';
-    this.setState({ sortKey: key, sortDir: nextDir });
-  };
-
-  loadAll = () => {
-    this.setState({ loading: true, error: '' });
-    const month = new Date().toISOString().slice(0, 7);
-    Promise.all([
-      fetch(API_BASE + '/monthly_sales.php?month=' + encodeURIComponent(month)).then(r => r.ok ? r.json() : Promise.reject(new Error('monthly_sales'))),
-      fetch(API_BASE + '/collections.php?month=' + encodeURIComponent(month)).then(r => r.ok ? r.json() : Promise.reject(new Error('collections')))
-    ]).then(([sales, collections]) => {
-      const collMap = {};
-      (collections || []).forEach(c => { collMap[c.employeeId] = c; });
-      const team = (sales || []).filter(s => !HIDDEN_EMPLOYEE_IDS.includes(s.employeeId)).map(s => {
-        const c = collMap[s.employeeId] || {};
-        return {
-          name: s.name, region: s.region || '—',
-          target: s.salesTarget || 0, achieved: s.salesAmount || 0,
-          instTarget: c.instTarget || 0, instCollected: c.instCollected || 0,
-          pastOutstanding: c.pastOutstanding || 0, pastCollected: c.pastCollected || 0
-        };
-      });
-      this.setState({ team, loading: false });
-    }).catch(() => {
-      this.setState({ loading: false, error: 'تعذّر تحميل البيانات من نظام Lines Center. تأكد من الاتصال وحاول مرة أخرى.' });
-    });
-  };
-
-  renderVals() {
-    const s = this.state;
-    const now = new Date().toLocaleDateString('ar-SA-u-nu-latn-ca-gregory', { year: 'numeric', month: 'long', day: 'numeric' });
-
-    if (s.loading || s.error) {
-      return {
-        showLoading: true, showContent: false,
-        hasError: !!s.error, isLoadingNoError: s.loading && !s.error, loadError: s.error,
-        retry: this.loadAll, hDate: now
-      };
-    }
-
-    const rows = buildRows(s.team);
-
-    const SORT_TYPE = { name: 'str', region: 'str' };
-    let displayRows = rows;
-    if (s.sortKey) {
-      const key = s.sortKey;
-      const dir = s.sortDir;
-      displayRows = [...rows].sort((a, b) => {
-        const av = a[key], bv = b[key];
-        if (SORT_TYPE[key] === 'str') {
-          const cmp = String(av || '').localeCompare(String(bv || ''), 'ar');
-          return dir === 'asc' ? cmp : -cmp;
-        }
-        const an = av === null || av === undefined ? -Infinity : av;
-        const bn = bv === null || bv === undefined ? -Infinity : bv;
-        return dir === 'asc' ? an - bn : bn - an;
-      });
-    }
-    const arrow = key => s.sortKey === key ? (s.sortDir === 'desc' ? '▼' : '▲') : '⇅';
-
-    const moneyRows = displayRows.map(e => ({
-      rank: e.rank,
-      hasRankFlag: e.rank <= 3 || e.rank > rows.length - 3,
-      rankFlagColor: e.rank <= 3 ? '#22c55e' : '#ef4444',
-      name: e.name, region: e.region,
-      target: e.target > 0 ? fmt(e.target) : '—',
-      achieved: fmt(e.achieved),
-      achievedPct: e.sp !== null ? pct(e.sp) : '—',
-      achievedBarPct: e.sp !== null ? bar(e.sp, 1.2) : 0,
-      instTarget: fmt(e.instTarget), instCollected: fmt(e.instCollected),
-      instRemainingPct: e.instTarget > 0 ? pct(e.instRemaining / e.instTarget) : '—',
-      pastOutstanding: fmt(e.pastOutstanding), pastCollected: fmt(e.pastCollected),
-      pastRemainingPct: e.pastOutstanding > 0 ? pct(e.pastRemaining / e.pastOutstanding) : '—',
-      totalOutstanding: fmt(e.totalOutstanding), totalPct: pct(e.totalPct)
-    }));
-
-    const sumTarget = rows.reduce((s2, e) => s2 + e.target, 0);
-    const sumAchieved = rows.reduce((s2, e) => s2 + e.achieved, 0);
-    const sumInstTarget = rows.reduce((s2, e) => s2 + e.instTarget, 0);
-    const sumInstCollected = rows.reduce((s2, e) => s2 + e.instCollected, 0);
-    const sumInstRemaining = rows.reduce((s2, e) => s2 + e.instRemaining, 0);
-    const sumPastOutstanding = rows.reduce((s2, e) => s2 + e.pastOutstanding, 0);
-    const sumPastCollected = rows.reduce((s2, e) => s2 + e.pastCollected, 0);
-    const sumPastRemaining = rows.reduce((s2, e) => s2 + e.pastRemaining, 0);
-    const sumTotalOutstanding = rows.reduce((s2, e) => s2 + e.totalOutstanding, 0);
-    const moneyTotals = {
-      target: fmt(sumTarget), achieved: fmt(sumAchieved),
-      pct: sumTarget > 0 ? pct(sumAchieved / sumTarget) : '—',
-      instTarget: fmt(sumInstTarget), instCollected: fmt(sumInstCollected),
-      instRemainingPct: sumInstTarget > 0 ? pct(sumInstRemaining / sumInstTarget) : '—',
-      pastOutstanding: fmt(sumPastOutstanding), pastCollected: fmt(sumPastCollected),
-      pastRemainingPct: sumPastOutstanding > 0 ? pct(sumPastRemaining / sumPastOutstanding) : '—',
-      totalOutstanding: fmt(sumTotalOutstanding), totalPct: '100%'
-    };
-
-    return {
-      showLoading: false, showContent: true, hasError: false, isLoadingNoError: true, loadError: '', retry: this.loadAll,
-      hDate: now,
-      moneyRows, moneyTotals,
-      indTopOutstanding: indicatorList(rows, 'totalPct', 'top'),
-      indBotOutstanding: indicatorList(rows, 'totalPct', 'bot'),
-      indTopAchv: indicatorListBy(rows, 'achieved', 'sp', 'bot'),
-      indBotAchv: indicatorListBy(rows, 'achieved', 'sp', 'top'),
-      indTopAchvTarget: indicatorList(rows, 'sp', 'bot'),
-      indBotAchvTarget: indicatorList(rows, 'sp', 'top'),
-      indTopPastCollect: indicatorList(rows, 'pastCollectPct', 'bot'),
-      indBotPastCollect: indicatorList(rows, 'pastCollectPct', 'top'),
-      indTopMonthlyCollect: indicatorList(rows, 'instCollectPct', 'bot'),
-      indBotMonthlyCollect: indicatorList(rows, 'instCollectPct', 'top'),
-      indTopCash: indicatorList(rows, 'cashPct', 'bot'),
-      indBotCash: indicatorList(rows, 'cashPct', 'top'),
-      sortByRank: () => this.sortBy('rank'), arrowRank: arrow('rank'),
-      sortByName: () => this.sortBy('name'), arrowName: arrow('name'),
-      sortByRegion: () => this.sortBy('region'), arrowRegion: arrow('region'),
-      sortByTarget: () => this.sortBy('target'), arrowTarget: arrow('target'),
-      sortByAchieved: () => this.sortBy('achieved'), arrowAchieved: arrow('achieved'),
-      sortBySp: () => this.sortBy('sp'), arrowSp: arrow('sp'),
-      sortByInstTarget: () => this.sortBy('instTarget'), arrowInstTarget: arrow('instTarget'),
-      sortByInstCollected: () => this.sortBy('instCollected'), arrowInstCollected: arrow('instCollected'),
-      sortByInstRemainingPct: () => this.sortBy('instRemainingPct'), arrowInstRemainingPct: arrow('instRemainingPct'),
-      sortByPastOutstanding: () => this.sortBy('pastOutstanding'), arrowPastOutstanding: arrow('pastOutstanding'),
-      sortByPastCollected: () => this.sortBy('pastCollected'), arrowPastCollected: arrow('pastCollected'),
-      sortByPastRemainingPct: () => this.sortBy('pastRemainingPct'), arrowPastRemainingPct: arrow('pastRemainingPct'),
-      sortByTotalOutstanding: () => this.sortBy('totalOutstanding'), arrowTotalOutstanding: arrow('totalOutstanding'),
-      sortByTotalPct: () => this.sortBy('totalPct'), arrowTotalPct: arrow('totalPct')
-    };
-  }
-}
-</script>
 <script>
-(function () {
-  var SCREEN_HEIGHT = 1080;
-  function recomputeSpacer() {
-    var indWrap = document.querySelector('.ind-wrap');
-    var spacer = document.getElementById('screenBreakSpacer');
-    if (!indWrap || !spacer) return;
-    var bottom = indWrap.getBoundingClientRect().bottom + window.scrollY;
-    var gap = Math.max(0, SCREEN_HEIGHT - bottom);
-    spacer.style.height = gap + 'px';
+/* ============ بيانات الأدوار ============ */
+var ROLES = [
+  {id:'director',icon:'wolf',title:'مدير التسويق',animal:'ذئب الاستراتيجية',
+    mission:'يحدد أولويات الفريق الشهرية، يراجع الأداء، ويوزع الميزانية بين B2B والمتجر الإلكتروني.',
+    prompts:['راجع أداء الشهر الماضي وحدد لي 3 أولويات تسويقية للشهر الجاي','قيّم توزيع ميزانيتنا الحالي بين B2B والمتجر الإلكتروني واقترح تعديل'],
+    kpiLabel:'أولويات منجزة هذا الشهر', kpiTarget:3,
+    tool:{name:'Notion', note:'مركز الاستراتيجيات والخطط الشهرية', connected:false}},
+  {id:'brand',icon:'lion',title:'مدير العلامة التجارية',animal:'أسد الهوية',
+    mission:'يحمي هوية Lines Ideas البصرية في كل منشور وكتالوج ومعرض.',
+    prompts:['راجع هذا التصميم وتأكد إنه يطابق هوية Lines Ideas (الألوان، الشعار، النبرة)','ابنِ دليل مختصر لاستخدام شعارنا على مواد المعارض'],
+    kpiLabel:'مراجعات هوية مكتملة', kpiTarget:10,
+    tool:{name:'Figma', note:'دليل الهوية البصرية الموحّد', connected:false}},
+  {id:'content',icon:'owl',title:'استراتيجي المحتوى',animal:'بومة المحتوى',
+    mission:'يبني خطة محتوى شهرية توازن بين القهوة والمعدات والتدريب والتثقيف.',
+    prompts:['ابنِ خطة محتوى لشهر [الشهر] توازن بين فئاتنا الأربعة الرئيسية','حلل محتوى 3 منافسين في HORECA واستخرج 5 أفكار نقتبسها بأسلوبنا'],
+    kpiLabel:'خطط محتوى منشورة', kpiTarget:1,
+    tool:{name:'ClickUp', note:'تقويم المحتوى وتوزيع المهام', connected:false}},
+  {id:'copy',icon:'fox',title:'كاتب المحتوى',animal:'ثعلب الكلمة',
+    mission:'يكتب بالعربي والإنجليزي لكل القنوات — من وصف المنتج إلى سكربت الإعلان.',
+    prompts:['اكتب وصف منتج احترافي لـ [اسم المنتج] يناسب أصحاب الكافيهات','اكتب 3 نسخ إعلانية قصيرة لحملة [اسم الحملة] بالعربي والإنجليزي'],
+    kpiLabel:'نصوص مكتوبة هذا الشهر', kpiTarget:20,
+    tool:{name:'Google Docs', note:'الكتابة والمراجعة التعاونية', connected:false}},
+  {id:'design',icon:'croc',title:'مدير التصميم الجرافيكي',animal:'تمساح الإبداع',
+    mission:'يحوّل كل فكرة إلى تصميم يلتزم بهوية Lines Ideas.',
+    prompts:['صمم مفهوم كاروسيل انستقرام لإطلاق [منتج] بهوية العلامة','جهّز مواصفات تصميم ستاند عرض لمعرض [اسم المعرض]'],
+    kpiLabel:'تصاميم مُسلّمة', kpiTarget:15,
+    tool:{name:'Canva', note:'قوالب جاهزة وتصدير سريع للتصاميم', connected:false}},
+  {id:'social',icon:'bee',title:'مدير وسائل التواصل',animal:'نحلة السوشيال',
+    mission:'يخطط جدول النشر الأسبوعي ويحافظ على نشاط الحسابات يوميًا.',
+    prompts:['جهّز جدول نشر أسبوعي لإنستقرام ولينكدإن حسب خطة المحتوى','اكتب ردود جاهزة على أكثر 5 أسئلة تتكرر في تعليقاتنا'],
+    kpiLabel:'منشورات هذا الأسبوع', kpiTarget:7,
+    tool:{name:'Metricool', note:'جدولة المنشورات وتحليلات السوشيال', connected:false}},
+  {id:'seo',icon:'spider',title:'أخصائي SEO',animal:'عنكبوت الظهور',
+    mission:'يحسّن ظهور صفحات المتجر والمدونة في جوجل لعملاء HORECA جدد.',
+    prompts:['راجع صفحة منتج [كذا] واقترح تحسينات SEO (عنوان، وصف، كلمات مفتاحية)','اقترح 10 كلمات مفتاحية تبحث عنها الكافيهات في السعودية'],
+    kpiLabel:'صفحات محسّنة هذا الشهر', kpiTarget:8,
+    tool:{name:'Ahrefs', note:'تتبع الكلمات المفتاحية والترتيب', connected:false}},
+  {id:'performance',icon:'falcon',title:'أخصائي التسويق الأدائي',animal:'صقر الإعلانات',
+    mission:'يدير حملات جوجل وميتا ويتابع تكلفة العميل المحتمل أول بأول.',
+    prompts:['حلل أداء حملة [اسم الحملة] الأسبوع الماضي واقترح تحسينات','ابنِ خطة استهداف لحملة ميتا تستهدف أصحاب الكافيهات الجديدة'],
+    kpiLabel:'حملات نشطة', kpiTarget:3,
+    tool:{name:'Adspirer', note:'إدارة حملات Google وMeta مباشرة', connected:false}},
+  {id:'trade',icon:'elephant',title:'أخصائي تسويق تجاري',animal:'فيل التوزيع',
+    mission:'يدعم فريق المبيعات بمواد العرض والمعارض وعروض الموزعين.',
+    prompts:['جهّز قائمة مواد نقاط البيع اللازمة لمعرض [اسم المعرض]','اكتب عرض تسعير تمهيدي لموزع جديد في [المدينة]'],
+    kpiLabel:'معارض / فعاليات مدعومة', kpiTarget:2,
+    tool:{name:'HubSpot', note:'CRM لعلاقات الموزعين والعملاء B2B', connected:false}},
+  {id:'ecommerce',icon:'cheetah',title:'مدير التجارة الإلكترونية',animal:'فهد المتجر',
+    mission:'يراقب أداء متجر Zid لحظة بلحظة ويحسّن معدل التحويل.',
+    prompts:['حلل أداء المتجر آخر 30 يوم واقترح 3 تحسينات لرفع التحويل','راجع المنتجات منخفضة المخزون واقترح خطة تعويض أو استبدال'],
+    kpiLabel:'معدل التحويل %', kpiTarget:2.5,
+    tool:{name:'Zid', note:'متجر خطوط الأفكار — متصل فعليًا داخل Cowork', connected:true}},
+  {id:'analyst',icon:'snake',title:'محلل التسويق',animal:'أفعى الأرقام',
+    mission:'يبني التقرير الشهري من بيانات المتجر والحملات ويكشف نقاط الضعف.',
+    prompts:['ابنِ تقرير أداء شهري من بيانات المتجر والحملات الإعلانية','قارن أداء هذا الشهر بالشهر الماضي وحدد أكبر 3 انحرافات'],
+    kpiLabel:'تقارير مُسلّمة', kpiTarget:4,
+    tool:{name:'Supermetrics', note:'تجميع بيانات الأداء من كل القنوات', connected:false}}
+];
+
+/* ============ أيقونات (نفس أسلوب الشعار) ============ */
+function drawIcon(ctx,type,cx,cy,r,color){
+  ctx.save();ctx.strokeStyle=color;ctx.lineWidth=3.2;ctx.lineJoin='round';ctx.lineCap='round';
+  function circ(x,y,rr){ctx.beginPath();ctx.arc(x,y,rr,0,Math.PI*2);ctx.stroke();}
+  if(type==='wolf'){
+    circ(cx,cy,r);
+    ctx.beginPath();ctx.moveTo(cx-r*0.55,cy-r*0.65);ctx.lineTo(cx-r*0.85,cy-r*1.25);ctx.lineTo(cx-r*0.2,cy-r*0.85);
+    ctx.moveTo(cx+r*0.55,cy-r*0.65);ctx.lineTo(cx+r*0.85,cy-r*1.25);ctx.lineTo(cx+r*0.2,cy-r*0.85);ctx.stroke();
+  } else if(type==='lion'){
+    for(var i=0;i<12;i++){var a=(Math.PI*2/12)*i;var x1=cx+Math.cos(a)*r*0.75,y1=cy+Math.sin(a)*r*0.75,x2=cx+Math.cos(a)*r*1.2,y2=cy+Math.sin(a)*r*1.2;
+      ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke();}
+    circ(cx,cy,r*0.72);
+  } else if(type==='owl'){
+    circ(cx,cy+r*0.1,r*0.9); circ(cx-r*0.32,cy,r*0.26); circ(cx+r*0.32,cy,r*0.26);
+  } else if(type==='fox'){
+    ctx.beginPath();ctx.moveTo(cx-r*0.75,cy-r*1.1);ctx.lineTo(cx-r*0.9,cy-r*0.1);ctx.lineTo(cx-r*0.15,cy-r*0.55);ctx.closePath();ctx.stroke();
+    ctx.beginPath();ctx.moveTo(cx+r*0.75,cy-r*1.1);ctx.lineTo(cx+r*0.9,cy-r*0.1);ctx.lineTo(cx+r*0.15,cy-r*0.55);ctx.closePath();ctx.stroke();
+    circ(cx,cy+r*0.15,r*0.8);
+  } else if(type==='croc'){
+    ctx.beginPath();ctx.moveTo(cx-r*1.1,cy+r*0.25);ctx.quadraticCurveTo(cx-r*0.4,cy-r*0.5,cx+r*0.8,cy-r*0.2);
+    ctx.quadraticCurveTo(cx+r*1.1,cy,cx+r*1.0,cy+r*0.2);ctx.quadraticCurveTo(cx,cy+r*0.4,cx-r*1.1,cy+r*0.25);ctx.stroke();
+  } else if(type==='bee'){
+    ctx.beginPath();ctx.ellipse(cx,cy+r*0.1,r*0.5,r*0.8,0,0,Math.PI*2);ctx.stroke();
+    ctx.beginPath();ctx.ellipse(cx-r*0.45,cy-r*0.4,r*0.35,r*0.2,-0.4,0,Math.PI*2);ctx.stroke();
+    ctx.beginPath();ctx.ellipse(cx+r*0.45,cy-r*0.4,r*0.35,r*0.2,0.4,0,Math.PI*2);ctx.stroke();
+  } else if(type==='spider'){
+    circ(cx,cy+r*0.1,r*0.4); circ(cx,cy-r*0.35,r*0.24);
+    for(var s=0;s<3;s++){var ang=-1+s*0.8;
+      ctx.beginPath();ctx.moveTo(cx+Math.cos(ang)*r*0.4,cy+r*0.1+Math.sin(ang)*r*0.4);ctx.lineTo(cx+Math.cos(ang)*r*1.2,cy+r*0.1+Math.sin(ang)*r*0.7);
+      ctx.moveTo(cx-Math.cos(ang)*r*0.4,cy+r*0.1+Math.sin(ang)*r*0.4);ctx.lineTo(cx-Math.cos(ang)*r*1.2,cy+r*0.1+Math.sin(ang)*r*0.7);ctx.stroke();}
+  } else if(type==='falcon'){
+    ctx.beginPath();ctx.moveTo(cx-r*1.2,cy+r*0.25);ctx.quadraticCurveTo(cx-r*0.4,cy-r*0.6,cx,cy-r*0.1);
+    ctx.quadraticCurveTo(cx+r*0.4,cy-r*0.6,cx+r*1.2,cy+r*0.25);ctx.quadraticCurveTo(cx,cy+r*0.4,cx-r*1.2,cy+r*0.25);ctx.stroke();
+  } else if(type==='elephant'){
+    circ(cx,cy-r*0.1,r*0.5);
+    ctx.beginPath();ctx.ellipse(cx-r*0.85,cy-r*0.05,r*0.38,r*0.5,0,0,Math.PI*2);ctx.stroke();
+    ctx.beginPath();ctx.ellipse(cx+r*0.85,cy-r*0.05,r*0.38,r*0.5,0,0,Math.PI*2);ctx.stroke();
+  } else if(type==='cheetah'){
+    circ(cx,cy,r*0.9);
+    circ(cx-r*0.5,cy-r*0.7,r*0.2); circ(cx+r*0.5,cy-r*0.7,r*0.2);
+  } else if(type==='snake'){
+    ctx.beginPath();ctx.moveTo(cx-r*1,cy-r*0.8);
+    ctx.bezierCurveTo(cx-r*1.3,cy-r*0.1,cx-r*0.3,cy-r*0.1,cx-r*0.3,cy+r*0.45);
+    ctx.bezierCurveTo(cx-r*0.3,cy+r*0.9,cx+r*0.6,cy+r*0.9,cx+r*0.6,cy+r*0.45);ctx.stroke();
+    circ(cx-r*1,cy-r*0.85,r*0.15);
   }
-  var debounceTimer = null;
-  function scheduleRecompute() {
-    clearTimeout(debounceTimer);
-    debounceTimer = setTimeout(recomputeSpacer, 50);
+  ctx.restore();
+}
+
+/* ============ تبويبات ============ */
+document.querySelectorAll('.tab-btn').forEach(function(btn){
+  btn.addEventListener('click',function(){
+    document.querySelectorAll('.tab-btn').forEach(function(b){b.classList.remove('active');});
+    document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('active');});
+    btn.classList.add('active');
+    document.getElementById('panel-'+btn.dataset.tab).classList.add('active');
+  });
+});
+
+/* ============ تبويب 1: الأدوار ============ */
+var rolesGrid = document.getElementById('rolesGrid');
+ROLES.forEach(function(r){
+  var card = document.createElement('div');
+  card.className='role-card';
+  var head = document.createElement('div');
+  head.className='role-head';
+  var canvas = document.createElement('canvas');
+  canvas.width=56; canvas.height=56; canvas.style.width='56px'; canvas.style.height='56px';
+  head.appendChild(canvas);
+  var names = document.createElement('div');
+  names.className='names';
+  names.innerHTML = '<div class="title">'+r.title+'</div><div class="animal">'+r.animal+'</div>';
+  head.appendChild(names);
+  card.appendChild(head);
+
+  var mission = document.createElement('div');
+  mission.className='mission';
+  mission.textContent = r.mission;
+  card.appendChild(mission);
+
+  var kpi = document.createElement('div');
+  kpi.className='kpi-pill';
+  kpi.textContent = 'مؤشر رئيسي: '+r.kpiLabel;
+  card.appendChild(kpi);
+
+  if(r.tool){
+    var tool = document.createElement('div');
+    tool.className = 'tool-badge' + (r.tool.connected ? ' connected' : '');
+    tool.innerHTML = '<span class="dot"></span><b>'+r.tool.name+'</b><span class="tnote"> — '+r.tool.note+'</span>';
+    card.appendChild(tool);
   }
-  new MutationObserver(scheduleRecompute).observe(document.body, { childList: true, subtree: true });
-  window.addEventListener('resize', scheduleRecompute);
-  window.addEventListener('load', scheduleRecompute);
-  scheduleRecompute();
-})();
+
+  r.prompts.forEach(function(p,pi){
+    var box = document.createElement('div');
+    box.className='prompt-box';
+    var ta = document.createElement('textarea');
+    ta.readOnly = true; ta.rows=2; ta.value = p;
+    box.appendChild(ta);
+    var btn = document.createElement('button');
+    btn.className='copy-btn';
+    btn.textContent='نسخ البرومبت';
+    btn.onclick = function(){ copyText(p, btn); };
+    box.appendChild(btn);
+    card.appendChild(box);
+  });
+
+  rolesGrid.appendChild(card);
+  setTimeout(function(){ drawIcon(canvas.getContext('2d'), r.icon, 28, 30, 17, '#E7302B'); }, 0);
+});
+
+function copyText(text, btn){
+  function ok(){ var old=btn.textContent; btn.textContent='تم النسخ ✓'; btn.classList.add('copied');
+    setTimeout(function(){ btn.textContent=old; btn.classList.remove('copied'); },1500); }
+  try{
+    navigator.clipboard.writeText(text).then(ok).catch(function(){ fallbackCopy(text, ok); });
+  }catch(e){ fallbackCopy(text, ok); }
+}
+function fallbackCopy(text, cb){
+  try{
+    var ta=document.createElement('textarea'); ta.value=text; ta.style.position='fixed'; ta.style.opacity='0';
+    document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta); cb();
+  }catch(e){ alert('انسخ النص يدويًا:\n\n'+text); }
+}
+
+/* ============ تبويب 2: المهام ============ */
+var TASKS_KEY = 'li_marketing_tasks_v1';
+var taskRoleSelect = document.getElementById('taskRole');
+ROLES.forEach(function(r){
+  var opt = document.createElement('option'); opt.value=r.title; opt.textContent=r.title;
+  taskRoleSelect.appendChild(opt);
+});
+
+function loadTasks(){
+  try{ return JSON.parse(localStorage.getItem(TASKS_KEY)) || seedTasks(); }
+  catch(e){ return seedTasks(); }
+}
+function seedTasks(){
+  var seed = [
+    {id:'s1',title:'وصف منتج لآلة قهوة لاماركزوكو',role:'كاتب المحتوى',priority:'عالية',date:'',status:'new'},
+    {id:'s2',title:'جدول نشر أسبوعي لإنستقرام',role:'مدير وسائل التواصل',priority:'متوسطة',date:'',status:'doing'},
+    {id:'s3',title:'تقرير أداء شهر أكتوبر',role:'محلل التسويق',priority:'عالية',date:'',status:'done'}
+  ];
+  saveTasks(seed);
+  return seed;
+}
+function saveTasks(t){ localStorage.setItem(TASKS_KEY, JSON.stringify(t)); }
+
+function renderTasks(){
+  var tasks = loadTasks();
+  ['new','doing','done'].forEach(function(status){
+    var col = document.getElementById('col-'+status);
+    col.innerHTML='';
+    var list = tasks.filter(function(t){return t.status===status;});
+    document.getElementById('cnt-'+status).textContent = list.length;
+    if(list.length===0){ col.innerHTML = '<div class="empty-col">لا توجد مهام</div>'; return; }
+    list.forEach(function(t){
+      var card = document.createElement('div');
+      card.className='task-card';
+      var next = status==='new'?'doing':(status==='doing'?'done':null);
+      var prev = status==='done'?'doing':(status==='doing'?'new':null);
+      card.innerHTML =
+        '<div class="t-role">'+t.role+'</div>'+
+        '<div class="t-title">'+t.title+'</div>'+
+        '<div class="t-meta">الأولوية: '+t.priority+(t.date?' · '+t.date:'')+'</div>'+
+        '<div class="t-actions"></div>';
+      var actions = card.querySelector('.t-actions');
+      if(prev){ var b1=document.createElement('button'); b1.textContent='◂ رجوع'; b1.onclick=function(){ moveTask(t.id, prev); }; actions.appendChild(b1); }
+      if(next){ var b2=document.createElement('button'); b2.textContent='تقديم ▸'; b2.onclick=function(){ moveTask(t.id, next); }; actions.appendChild(b2); }
+      var bd=document.createElement('button'); bd.textContent='حذف'; bd.className='danger'; bd.onclick=function(){ deleteTask(t.id); }; actions.appendChild(bd);
+      col.appendChild(card);
+    });
+  });
+}
+function moveTask(id, newStatus){
+  var tasks = loadTasks();
+  tasks.forEach(function(t){ if(t.id===id) t.status=newStatus; });
+  saveTasks(tasks); renderTasks();
+}
+function deleteTask(id){
+  var tasks = loadTasks().filter(function(t){ return t.id!==id; });
+  saveTasks(tasks); renderTasks();
+}
+function addTask(){
+  var title = document.getElementById('taskTitle').value.trim();
+  if(!title){ alert('اكتب عنوان المهمة'); return; }
+  var tasks = loadTasks();
+  tasks.push({
+    id: 't'+Date.now(),
+    title: title,
+    role: document.getElementById('taskRole').value,
+    priority: document.getElementById('taskPriority').value,
+    date: document.getElementById('taskDate').value,
+    status: 'new'
+  });
+  saveTasks(tasks);
+  document.getElementById('taskTitle').value='';
+  document.getElementById('taskDate').value='';
+  renderTasks();
+}
+renderTasks();
+
+/* ============ تبويب 3: الأداء ============ */
+var KPI_KEY = 'li_marketing_kpis_v1';
+function loadKpis(){
+  try{ return JSON.parse(localStorage.getItem(KPI_KEY)) || {}; }catch(e){ return {}; }
+}
+function saveKpis(k){ localStorage.setItem(KPI_KEY, JSON.stringify(k)); }
+
+var kpiGrid = document.getElementById('kpiGrid');
+var kpiState = loadKpis();
+ROLES.forEach(function(r){
+  if(!kpiState[r.id]) kpiState[r.id] = {actual:0, target:r.kpiTarget};
+  var card = document.createElement('div');
+  card.className='kpi-card';
+  card.innerHTML =
+    '<div class="k-title">'+r.title+'</div>'+
+    '<div class="k-label">'+r.kpiLabel+'</div>'+
+    '<div class="kpi-row"><label>فعلي</label><input type="number" step="0.1" id="act-'+r.id+'" value="'+kpiState[r.id].actual+'"></div>'+
+    '<div class="kpi-row"><label>هدف</label><input type="number" step="0.1" id="tgt-'+r.id+'" value="'+kpiState[r.id].target+'"></div>'+
+    '<div class="bar-track"><div class="bar-fill" id="bar-'+r.id+'" style="width:0%"></div></div>';
+  kpiGrid.appendChild(card);
+});
+saveKpis(kpiState);
+
+function updateBar(id){
+  var a = parseFloat(document.getElementById('act-'+id).value)||0;
+  var t = parseFloat(document.getElementById('tgt-'+id).value)||1;
+  var pct = Math.max(0, Math.min(100, (a/t)*100));
+  document.getElementById('bar-'+id).style.width = pct+'%';
+  var state = loadKpis();
+  state[id] = {actual:a, target:t};
+  saveKpis(state);
+}
+ROLES.forEach(function(r){
+  document.getElementById('act-'+r.id).addEventListener('input', function(){ updateBar(r.id); });
+  document.getElementById('tgt-'+r.id).addEventListener('input', function(){ updateBar(r.id); });
+  updateBar(r.id);
+});
 </script>
-</x-dc>
 </body>
 </html>
